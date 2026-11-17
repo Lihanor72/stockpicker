@@ -2,12 +2,12 @@
 /**
  * Plugin Name: StockBell Announcements
  * Description: Every UK regulated announcement from the FCA National Storage Mechanism (NSM), tagged, searchable and linked to the official document. Collected on this server every five minutes. Tickers resolved via GLEIF (LEI to ISIN) and OpenFIGI (ISIN to London ticker). Also builds automated five-factor scores from each company's filings and delayed daily prices.
- * Version: 1.1.1
+ * Version: 1.1.2
  * Author: StockBell
  */
 defined('ABSPATH') || exit;
 
-define('SBA_VERSION', '1.1.1');
+define('SBA_VERSION', '1.1.2');
 define('SBA_PRICES', 'https://raw.githubusercontent.com/Lihanor72/stockpicker/main/data/prices.json');
 define('SBA_PRICES_PAGE', 'https://github.com/Lihanor72/stockpicker/blob/main/data/prices.json');
 define('SBA_NSM_PAGE', 'https://data.fca.org.uk/#/nsm/nationalstoragemechanism');
@@ -54,7 +54,7 @@ function sba_install() {
 ) $c;");
     update_option('sba_db_version', SBA_VERSION, false);
     if (!wp_next_scheduled('sba_collect')) wp_schedule_event(time() + 60, 'sba_five_minutes', 'sba_collect');
-    wp_clear_scheduled_hook('sba_enrich'); // scoring work runs from the server cron via run-enrich.php
+    if (!wp_next_scheduled('sba_enrich')) wp_schedule_event(time() + 90, 'sba_five_minutes', 'sba_enrich'); // short slices; run-enrich.php (server cron) adds capacity
 }
 register_deactivation_hook(__FILE__, function () { wp_clear_scheduled_hook('sba_collect'); wp_clear_scheduled_hook('sba_enrich'); });
 add_action('plugins_loaded', function () { if (get_option('sba_db_version') !== SBA_VERSION) sba_install(); });
@@ -237,9 +237,11 @@ function sba_norm_name($s) {
  * establish is left empty, and a company without all five factors gets no score.
  */
 /* Runs from the server's own cron (run-enrich.php, PHP CLI) so it is not cut off by web request time limits. */
+// Short slices inside the 5-minute web cron (kept well under its 60-second limit).
+add_action('sba_enrich', function () { sba_enrich(12, 30); });
 function sba_enrich($backfill = 90, $docs = 200) {
     if (get_transient('sba_enrich_lock')) return;
-    set_transient('sba_enrich_lock', 1, $docs + 60);
+    set_transient('sba_enrich_lock', 1, $docs + 20);
     @set_time_limit($docs + 50);
     $start = microtime(true);
     try {
