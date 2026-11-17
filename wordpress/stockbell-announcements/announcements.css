@@ -1,0 +1,39 @@
+/* StockBell announcements. Every selector is scoped under .sba-app so the theme's .prose rules don't override it. */
+article:has(.sba-app) > h1:first-child{display:none}
+.sba-app{max-width:1180px;margin:0 auto;padding:8px 16px 60px;color:inherit}
+.sba-app .sba-kicker{font-size:12px;letter-spacing:.12em;opacity:.7;font-weight:700}
+.sba-app .sba-head h1{margin:6px 0 8px;font-size:clamp(26px,4vw,40px);line-height:1.1}
+.sba-app .sba-head p{margin:0 0 18px;opacity:.8;max-width:760px}
+.sba-app .sba-controls{display:flex;flex-wrap:wrap;gap:12px 18px;align-items:center;margin-bottom:12px;font-size:14px}
+.sba-app .sba-controls label{margin:0;display:flex;align-items:center;gap:6px}
+.sba-app .sba-controls select,.sba-app .sba-controls input[type=search]{font:inherit;font-size:14px;padding:7px 10px;border-radius:8px;border:1px solid rgba(127,127,127,.45);background:transparent;color:inherit;margin:0;width:auto;box-shadow:none}
+.sba-app .sba-controls select option{color:#111}
+.sba-app .sba-search{flex:1 1 260px}.sba-app .sba-search input{flex:1;min-width:0}
+.sba-app .sba-check{cursor:pointer}
+.sba-app .sba-tags{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 12px}
+.sba-app .sba-chip{font:inherit;font-size:13px;font-weight:600;line-height:1.2;padding:6px 11px;margin:0;border-radius:999px;border:1px solid rgba(127,127,127,.45);background:transparent;color:inherit;cursor:pointer;opacity:.85;box-shadow:none;text-transform:none;letter-spacing:0;width:auto}
+.sba-app .sba-chip:hover{opacity:1;border-color:currentColor}
+.sba-app .sba-chip.on{opacity:1;border-color:#22c55e;background:rgba(34,197,94,.16);color:inherit}
+.sba-app .sba-status{font-size:13px;opacity:.75;margin:0 0 8px}
+.sba-app .sba-list{list-style:none;margin:0;padding:0;border-top:1px solid rgba(127,127,127,.3)}
+.sba-app .sba-row{display:grid;grid-template-columns:52px minmax(150px,240px) 1fr auto;gap:12px;align-items:start;padding:10px 4px;margin:0;border-bottom:1px solid rgba(127,127,127,.22)}
+.sba-app .sba-row::before,.sba-app .sba-row::marker{content:none}
+.sba-app .sba-time{font-family:ui-monospace,monospace;font-size:13px;opacity:.7;padding-top:2px}
+.sba-app .sba-who{display:flex;flex-direction:column;gap:2px;min-width:0}
+.sba-app .sba-tk{font-family:ui-monospace,monospace;font-weight:700;color:inherit;text-decoration:none;border-bottom:1px dotted currentColor;align-self:flex-start}
+.sba-app .sba-co{font-size:13px;opacity:.8;overflow:hidden;text-overflow:ellipsis}
+.sba-app .sba-body{min-width:0}
+.sba-app .sba-h{font-weight:600;color:inherit;text-decoration:none;display:block}
+.sba-app a.sba-h:hover{text-decoration:underline}
+.sba-app .sba-type{display:block;font-size:12px;opacity:.6;margin-top:2px}
+.sba-app .sba-tag{font-size:11px;font-weight:700;padding:3px 8px;border-radius:999px;white-space:nowrap;text-transform:uppercase;letter-spacing:.03em;background:rgba(127,127,127,.16)}
+.sba-app .sba-g{color:#22c55e;background:rgba(34,197,94,.14)}.sba-app .sba-r{color:#f0606a;background:rgba(240,96,106,.14)}
+.sba-app .sba-b{color:#5b9cff;background:rgba(91,156,255,.14)}.sba-app .sba-a{color:#f5b83d;background:rgba(245,184,61,.14)}
+.sba-app .sba-empty{padding:18px 4px;opacity:.75}
+.sba-app .sba-foot{font-size:12px;opacity:.65;margin-top:18px}
+.sba-app .sba-foot a{color:inherit}
+@media (max-width:700px){
+  .sba-app .sba-row{grid-template-columns:44px 1fr;gap:4px 10px}
+  .sba-app .sba-who,.sba-app .sba-body{grid-column:2}
+  .sba-app .sba-tag{grid-column:2;justify-self:start}
+}
