@@ -61,7 +61,7 @@
     status.textContent = rows.length + ' announcements from ' + companies.size + ' companies' +
       (data.date === todayUK() ? ' so far today' : ' on ' + data.date) + '. ' +
       (h.ok === false ? 'Latest check failed; showing saved announcements. ' : '') +
-      (h.last_ok ? 'Last checked ' + hhmm(h.last_ok) + ' UK.' : '');
+      (h.last_ok ? 'Last checked ' + hhmm(h.last_ok) + ' UK. ' : '') + 'Updates every 5 minutes.';
     if (!rows.length) list.append(el('li', 'sba-empty', data.items.length ? 'Nothing matches these filters.' : 'No announcements collected for this date yet.'));
   }
   const todayUK = () => new Intl.DateTimeFormat('en-CA', {timeZone: 'Europe/London'}).format(new Date());
