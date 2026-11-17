@@ -139,6 +139,10 @@ def build_universe(state):
         if info.get("last", "") >= cutoff:
             add(t, t.rstrip(".").replace(".", "-") + ".L", info.get("n", t), "UK small")
 
+    # every London-listed company the StockBell site has seen in official FCA announcements
+    for t, n in site_tickers():
+        add(t, t + ".L", n, "UK small")
+
     # watchlist last, so its market labels win
     wl = os.path.join(ROOT, "watchlist.csv")
     if os.path.exists(wl):
@@ -152,6 +156,26 @@ def build_universe(state):
         if y in bad and not uni[y].get("wl"):
             del uni[y]
     return uni
+
+
+SITE_TICKERS = "https://mediumturquoise-wasp-204263.hostingersite.com/wp-json/stockbell/v1/tickers"
+
+
+def site_tickers():
+    """London tickers resolved by the StockBell announcements plugin (FCA NSM + GLEIF + OpenFIGI)."""
+    try:
+        r = requests.get(SITE_TICKERS, headers=UA, timeout=30)
+        items = r.json().get("items", []) if r.ok else []
+    except Exception as e:
+        log("site tickers failed:", e)
+        return []
+    out = []
+    for i in items:
+        t = re.sub(r"[^A-Z0-9-]", "", str(i.get("y", "")).upper())
+        if t:
+            out.append((t, str(i.get("n") or t)[:60]))
+    log("site tickers", len(out))
+    return out
 
 
 # ---------------------------------------------------------------- RNS
@@ -484,6 +508,14 @@ def main():
         "rnsKeywordHits": [{"t": x["t"], "h": x["h"], "pos": x["pos"], "neg": x["neg"], "bid": x["bid"], "u": x["u"]}
                            for x in rns_hits[:40]],
     }
+    # every priced UK share, for the StockBell automated scores (momentum and liquidity inputs)
+    prices = {"generated": auto["generated"],
+              "source": "Yahoo Finance daily prices via yfinance (delayed; last bar may be the previous close)",
+              "fields": ["px", "pxs", "date", "d1", "d5", "d20", "fromHi", "ma50", "ma200", "rsi", "liquid", "val", "m"],
+              "uk": {r["y"][:-2]: [r["px"], r["pxs"], r["date"], r["d1"], r["d5"], r["d20"], r["fromHi"], r["ma50"],
+                                   r["ma200"], r["rsi"], r["liquid"], r["val"], r["m"]] for r in rows if r["uk"]}}
+    with open(os.path.join(DATA, "prices.json"), "w", encoding="utf-8") as f:
+        json.dump(prices, f, ensure_ascii=False, separators=(",", ":"))
     with open(os.path.join(DATA, "auto.json"), "w", encoding="utf-8") as f:
         json.dump(auto, f, ensure_ascii=False, separators=(",", ":"))
     with open(os.path.join(DATA, "digest.json"), "w", encoding="utf-8") as f:

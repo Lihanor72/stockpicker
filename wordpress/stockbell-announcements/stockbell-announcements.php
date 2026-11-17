@@ -1,13 +1,16 @@
 <?php
 /**
  * Plugin Name: StockBell Announcements
- * Description: Every UK regulated announcement from the FCA National Storage Mechanism (NSM), tagged, searchable and linked to the official document. Collected on this server every five minutes. Tickers resolved via GLEIF (LEI to ISIN) and OpenFIGI (ISIN to London ticker).
- * Version: 1.0.2
+ * Description: Every UK regulated announcement from the FCA National Storage Mechanism (NSM), tagged, searchable and linked to the official document. Collected on this server every five minutes. Tickers resolved via GLEIF (LEI to ISIN) and OpenFIGI (ISIN to London ticker). Also builds automated five-factor scores from each company's filings and delayed daily prices.
+ * Version: 1.1.0
  * Author: StockBell
  */
 defined('ABSPATH') || exit;
 
-define('SBA_VERSION', '1.0.2');
+define('SBA_VERSION', '1.1.0');
+define('SBA_PRICES', 'https://raw.githubusercontent.com/Lihanor72/stockpicker/main/data/prices.json');
+define('SBA_PRICES_PAGE', 'https://github.com/Lihanor72/stockpicker/blob/main/data/prices.json');
+define('SBA_NSM_PAGE', 'https://data.fca.org.uk/#/nsm/nationalstoragemechanism');
 define('SBA_NSM', 'https://api.data.fca.org.uk/search?index=nsm-search');
 
 function sba_table() { global $wpdb; return $wpdb->prefix . 'sb_announcements'; }
@@ -32,6 +35,9 @@ function sba_install() {
   url varchar(255) NOT NULL DEFAULT '',
   tag varchar(30) NOT NULL DEFAULT '',
   routine tinyint(1) NOT NULL DEFAULT 0,
+  doc_checked tinyint(1) NOT NULL DEFAULT 0,
+  doc_signal varchar(12) NOT NULL DEFAULT '',
+  detail varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY  (id),
   KEY published (published),
   KEY lei (lei)
@@ -43,12 +49,15 @@ function sba_install() {
   name varchar(255) NOT NULL DEFAULT '',
   security varchar(60) NOT NULL DEFAULT '',
   checked datetime NOT NULL,
+  history datetime NULL,
   PRIMARY KEY  (lei)
 ) $c;");
     update_option('sba_db_version', SBA_VERSION, false);
     if (!wp_next_scheduled('sba_collect')) wp_schedule_event(time() + 60, 'sba_five_minutes', 'sba_collect');
+    if (!wp_next_scheduled('sba_enrich')) wp_schedule_event(time() + 150, 'sba_five_minutes', 'sba_enrich');
 }
-register_deactivation_hook(__FILE__, function () { wp_clear_scheduled_hook('sba_collect'); });
+register_deactivation_hook(__FILE__, function () { wp_clear_scheduled_hook('sba_collect'); wp_clear_scheduled_hook('sba_enrich'); });
+add_action('plugins_loaded', function () { if (get_option('sba_db_version') !== SBA_VERSION) sba_install(); });
 add_filter('cron_schedules', function ($s) {
     $s['sba_five_minutes'] = ['interval' => 300, 'display' => 'Every five minutes (StockBell announcements)'];
     return $s;
@@ -90,11 +99,11 @@ function sba_classify($type, $code, $headline, $category) {
 }
 
 /* ------------------------------------------------------------------ collector */
-function sba_nsm_page($from, $size = 100) {
+function sba_nsm_page($from, $size = 100, $criteria = []) {
     $r = wp_remote_post(SBA_NSM, [
         'timeout' => 30,
         'headers' => ['Content-Type' => 'application/json', 'Origin' => 'https://data.fca.org.uk', 'Referer' => 'https://data.fca.org.uk/', 'User-Agent' => 'StockBell/1.0 (UK announcements list)'],
-        'body' => wp_json_encode(['from' => $from, 'size' => $size, 'sort' => 'publication_date', 'sortorder' => 'desc', 'criteriaObj' => ['criteria' => [], 'dateCriteria' => []]]),
+        'body' => wp_json_encode(['from' => $from, 'size' => $size, 'sort' => 'publication_date', 'sortorder' => 'desc', 'criteriaObj' => ['criteria' => $criteria, 'dateCriteria' => []]]),
     ]);
     if (is_wp_error($r)) return $r;
     if (wp_remote_retrieve_response_code($r) !== 200) return new WP_Error('sba_http', 'NSM HTTP ' . wp_remote_retrieve_response_code($r));
@@ -102,9 +111,36 @@ function sba_nsm_page($from, $size = 100) {
     return is_array($j) ? ($j['hits']['hits'] ?? []) : new WP_Error('sba_json', 'NSM returned invalid JSON');
 }
 
+/** Insert one NSM hit; returns true when it was new. */
+function sba_insert_hit($h) {
+    global $wpdb;
+    $t = sba_table();
+    $s = $h['_source'] ?? [];
+    $id = substr((string) ($s['disclosure_id'] ?? $h['_id'] ?? ''), 0, 64);
+    if ($id === '' || empty($s['publication_date'])) return false;
+    if ($wpdb->get_var($wpdb->prepare("SELECT 1 FROM $t WHERE id=%s", $id))) return false;
+    [$tag, $routine] = sba_classify((string) ($s['type'] ?? ''), (string) ($s['type_code'] ?? ''), (string) ($s['headline'] ?? ''), (string) ($s['category_group'] ?? ''));
+    $link = ltrim((string) ($s['download_link'] ?? ''), '/');
+    return (bool) $wpdb->insert($t, [
+        'id' => $id,
+        'published' => gmdate('Y-m-d H:i:s', strtotime($s['publication_date'])),
+        'company' => mb_substr(sanitize_text_field($s['company'] ?? ''), 0, 255),
+        'lei' => preg_match('/^[A-Z0-9]{20}$/', (string) ($s['lei'] ?? '')) ? $s['lei'] : '',
+        'headline' => mb_substr(sanitize_text_field($s['headline'] ?? ''), 0, 400),
+        'type' => mb_substr(sanitize_text_field($s['type'] ?? ''), 0, 120),
+        'type_code' => mb_substr(sanitize_text_field($s['type_code'] ?? ''), 0, 12),
+        'category' => mb_substr(sanitize_text_field($s['category_group'] ?? ''), 0, 80),
+        'source' => mb_substr(sanitize_text_field($s['source'] ?? ''), 0, 40),
+        'url' => $link && preg_match('#^NSM/[A-Za-z0-9/_.\-]+$#', $link) ? 'https://data.fca.org.uk/artefacts/' . $link : '',
+        'tag' => $tag,
+        'routine' => $routine,
+    ]);
+}
+
 function sba_collect($max_pages = 15) {
     if (get_transient('sba_lock')) return;
     set_transient('sba_lock', 1, 240);
+    @set_time_limit(150);
     global $wpdb;
     $t = sba_table(); $new = 0;
     try {
@@ -117,32 +153,14 @@ function sba_collect($max_pages = 15) {
             if (!$hits) break;
             $page_new = 0;
             foreach ($hits as $h) {
-                $s = $h['_source'] ?? [];
-                $id = substr((string) ($s['disclosure_id'] ?? $h['_id'] ?? ''), 0, 64);
-                if ($id === '' || empty($s['publication_date'])) continue;
-                if ($wpdb->get_var($wpdb->prepare("SELECT 1 FROM $t WHERE id=%s", $id))) continue;
-                [$tag, $routine] = sba_classify((string) ($s['type'] ?? ''), (string) ($s['type_code'] ?? ''), (string) ($s['headline'] ?? ''), (string) ($s['category_group'] ?? ''));
-                $link = ltrim((string) ($s['download_link'] ?? ''), '/');
-                $wpdb->insert($t, [
-                    'id' => $id,
-                    'published' => gmdate('Y-m-d H:i:s', strtotime($s['publication_date'])),
-                    'company' => mb_substr(sanitize_text_field($s['company'] ?? ''), 0, 255),
-                    'lei' => preg_match('/^[A-Z0-9]{20}$/', (string) ($s['lei'] ?? '')) ? $s['lei'] : '',
-                    'headline' => mb_substr(sanitize_text_field($s['headline'] ?? ''), 0, 400),
-                    'type' => mb_substr(sanitize_text_field($s['type'] ?? ''), 0, 120),
-                    'type_code' => mb_substr(sanitize_text_field($s['type_code'] ?? ''), 0, 12),
-                    'category' => mb_substr(sanitize_text_field($s['category_group'] ?? ''), 0, 80),
-                    'source' => mb_substr(sanitize_text_field($s['source'] ?? ''), 0, 40),
-                    'url' => $link && preg_match('#^NSM/[A-Za-z0-9/_.\-]+$#', $link) ? 'https://data.fca.org.uk/artefacts/' . $link : '',
-                    'tag' => $tag,
-                    'routine' => $routine,
-                ]);
-                $new++; $page_new++;
+                if (sba_insert_hit($h)) { $new++; $page_new++; }
             }
             $oldest = end($hits)['_source']['publication_date'] ?? '';
             if ($page_new === 0 || ($oldest && strtotime($oldest) < time() - 3 * DAY_IN_SECONDS)) break;
         }
-        $wpdb->query($wpdb->prepare("DELETE FROM $t WHERE published < %s", gmdate('Y-m-d H:i:s', time() - 45 * DAY_IN_SECONDS)));
+        // Keep company history for scoring (400 days); routine filings for 45 days (buybacks 120).
+        $wpdb->query($wpdb->prepare("DELETE FROM $t WHERE published < %s OR (routine=1 AND tag<>'Buyback' AND published < %s) OR (tag='Buyback' AND published < %s)",
+            gmdate('Y-m-d H:i:s', time() - 400 * DAY_IN_SECONDS), gmdate('Y-m-d H:i:s', time() - 45 * DAY_IN_SECONDS), gmdate('Y-m-d H:i:s', time() - 120 * DAY_IN_SECONDS)));
         update_option('sba_health', ['at' => gmdate('c'), 'ok' => true, 'new' => $new, 'last_ok' => gmdate('c')], false);
         sba_resolve_leis(12, 20);
     } finally {
@@ -213,9 +231,287 @@ function sba_norm_name($s) {
     return trim(preg_replace('/[^A-Z0-9&]+/', ' ', $s));
 }
 
+/* ------------------------------------------------------------------ automated scores
+ * Fixed, published rules applied to (a) each company's official filings on the FCA NSM and
+ * (b) delayed daily prices produced by the free GitHub scan. A factor that the data cannot
+ * establish is left empty, and a company without all five factors gets no score.
+ */
+add_action('sba_enrich', 'sba_enrich');
+function sba_enrich() {
+    if (get_transient('sba_enrich_lock')) return;
+    set_transient('sba_enrich_lock', 1, 200);
+    @set_time_limit(170);
+    $start = microtime(true);
+    try {
+        sba_backfill($start + 35);
+        sba_read_docs($start + 75);
+        sba_score_all();
+    } finally {
+        delete_transient('sba_enrich_lock');
+    }
+}
+
+/** London ticker as used by Yahoo (BT/A -> BT-A, RR/ -> RR). */
+function sba_ykey($ticker) {
+    return preg_replace('/[^A-Z0-9-]/', '', str_replace(['/', '.'], '-', rtrim(strtoupper((string) $ticker), '/.')));
+}
+function sba_display_ticker($ticker) { return rtrim(strtoupper((string) $ticker), '/'); }
+
+/** Load up to ~400 days of each listed company's filings from the NSM (once per company). */
+function sba_backfill($until) {
+    global $wpdb;
+    $m = sba_map_table();
+    $cut = time() - 400 * DAY_IN_SECONDS;
+    $leis = $wpdb->get_col("SELECT lei FROM $m WHERE ticker<>'' AND history IS NULL ORDER BY checked DESC LIMIT 60");
+    foreach ($leis as $lei) {
+        if (microtime(true) > $until) break;
+        $ok = true;
+        for ($p = 0; $p < 3; $p++) {
+            $hits = sba_nsm_page($p * 100, 100, [['name' => 'lei', 'value' => [$lei]]]);
+            if (is_wp_error($hits)) { $ok = false; break; }
+            foreach ($hits as $h) {
+                $d = strtotime($h['_source']['publication_date'] ?? '');
+                if ($d && $d >= $cut) sba_insert_hit($h);
+            }
+            if (count($hits) < 100) break;
+            $oldest = strtotime(end($hits)['_source']['publication_date'] ?? '');
+            if ($oldest && $oldest < $cut) break;
+        }
+        if (!$ok) break;
+        $wpdb->update($m, ['history' => gmdate('Y-m-d H:i:s')], ['lei' => $lei]);
+    }
+}
+
+/** Read results, trading updates, warnings and director dealings (HTML documents only). */
+function sba_read_docs($until) {
+    global $wpdb;
+    $t = sba_table(); $m = sba_map_table();
+    $rows = $wpdb->get_results($wpdb->prepare(
+        "SELECT a.id,a.url,a.tag FROM $t a JOIN $m m ON m.lei=a.lei WHERE m.ticker<>'' AND a.doc_checked=0 AND a.url<>'' AND a.tag IN ('Director dealing','Results','Warning') AND a.published > %s ORDER BY a.published DESC LIMIT 80",
+        gmdate('Y-m-d H:i:s', time() - 200 * DAY_IN_SECONDS)), ARRAY_A);
+    foreach ($rows as $r) {
+        if (microtime(true) > $until) break;
+        $res = wp_remote_get($r['url'], ['timeout' => 15, 'limit_response_size' => 800000, 'headers' => ['User-Agent' => 'StockBell/1.0 (UK announcements list)']]);
+        if (is_wp_error($res)) break;
+        $code = (int) wp_remote_retrieve_response_code($res);
+        if ($code === 429 || $code >= 500) break;
+        $sig = 'unread'; $detail = '';
+        if ($code === 200 && stripos((string) wp_remote_retrieve_header($res, 'content-type'), 'html') !== false) {
+            $txt = sba_doc_text(wp_remote_retrieve_body($res));
+            [$sig, $detail] = $r['tag'] === 'Director dealing' ? sba_read_dealing($txt) : sba_read_results($txt);
+        }
+        $wpdb->update($t, ['doc_checked' => 1, 'doc_signal' => $sig, 'detail' => mb_substr($detail, 0, 255)], ['id' => $r['id']]);
+        usleep(150000);
+    }
+}
+function sba_doc_text($html) {
+    $html = preg_replace('#<(script|style)[^>]*>.*?</\1>#is', ' ', (string) $html);
+    return trim(preg_replace('/\s+/u', ' ', html_entity_decode(wp_strip_all_tags($html), ENT_QUOTES | ENT_HTML5, 'UTF-8')));
+}
+/** PDMR notification: classify each "Nature of the transaction" as buy, sell or other (awards, options, SIP, vesting). */
+function sba_read_dealing($txt) {
+    preg_match_all('/Nature of the transaction:?\s*(.{3,160}?)(?=\s*(?:\(?c\)|c\.|Price\(s\)|Price and volume|$))/iu', $txt, $mm);
+    if (!$mm[1]) return ['unclear', ''];
+    $buy = $sell = $other = 0;
+    foreach ($mm[1] as $n) {
+        $l = strtolower($n);
+        if (preg_match('/award|grant|vest|option|sharesave|\bsip\b|share incentive|incentive plan|ltip|deferred|bonus|dividend reinvest|\bdrip\b|transfer|gift|nil[- ]cost|release|conditional|lapse|partnership shares|matching shares|free shares|exercise|settle/', $l)) $other++;
+        elseif (preg_match('/purchase|acquisition|acquired|bought|\bbuy\b|subscri/', $l)) $buy++;
+        elseif (preg_match('/\bsale\b|\bsold\b|disposal|disposed|\bsell/', $l)) $sell++;
+        else $other++;
+    }
+    $sig = $buy && !$sell ? 'buy' : ($sell && !$buy ? 'sell' : ($buy && $sell ? 'mixed' : 'other'));
+    return [$sig, trim(mb_substr($mm[1][0], 0, 160))];
+}
+/** Results / trading update: look for explicit statements about trading versus expectations in the opening text. */
+function sba_read_results($txt) {
+    $x = mb_substr($txt, 0, 9000);
+    $hardpos = '/ahead of (?:market |board |management |our |current )?expectations|above (?:market |board )?expectations|exceed\w* (?:market |board |our )?expectations|(?:raise[sd]?|increase[sd]?|upgrade[sd]?) (?:its |our |the )?(?:full[- ]year |fy\d* )?(?:guidance|forecast|outlook|expectations)/i';
+    $hardneg = '/below (?:market |board |management |our )?expectations|profit warning|lower than (?:previously )?expected|(?:reduce[sd]?|lower(?:ed)?|cut|downgrade[sd]?) (?:its |our |the )?(?:full[- ]year |fy\d* )?(?:guidance|forecast|outlook|expectations)|material uncertainty|going concern/i';
+    $pos = '/record (?:revenue|results|profit|sales|orders?|year|half|performance)|strong (?:trading|performance|growth|demand|results)|(?:revenue|profit|sales|ebitda|earnings|eps|turnover) (?:up|increased|grew|rose|growth of)|return(?:ed)? to profit|maiden profit|order book (?:up|increased|at a record)/i';
+    $neg = '/(?:revenue|profit|sales|ebitda|earnings|eps|turnover) (?:down|decreased|fell|declined)|loss (?:widened|increased)|challenging|weaker|impairment|headwinds|softer|difficult (?:market|trading)/i';
+    $inline = '/in line with (?:market |board |management |our |current )?expectations|on track|reiterate[sd]?|(?:maintain|confirm)(?:s|ed)? (?:its |our |the )?(?:full[- ]year )?(?:guidance|outlook|expectations)/i';
+    $f = function ($re) use ($x) { preg_match_all($re, $x, $m); return array_values(array_unique(array_map('strtolower', $m[0]))); };
+    $hp = $f($hardpos); $hn = $f($hardneg); $p = $f($pos); $n = $f($neg); $il = $f($inline);
+    if ($hn && !$hp) $sig = 'e0';
+    elseif ($hp && !$hn) $sig = ($p && !$n) ? 'e5' : 'e4';
+    elseif ($hp && $hn) $sig = 'e2';
+    elseif (count($p) >= 2 && !$n) $sig = 'e4';
+    elseif ($il) $sig = $n ? 'e2' : 'e3';
+    elseif (count($p) > count($n)) $sig = 'e3';
+    elseif (count($n) > count($p)) $sig = 'e1';
+    elseif ($p || $n) $sig = 'e2';
+    else $sig = 'none';
+    $bits = [];
+    if ($hp || $p) $bits[] = 'positive: ' . implode(', ', array_slice(array_merge($hp, $p), 0, 3));
+    if ($hn || $n) $bits[] = 'negative: ' . implode(', ', array_slice(array_merge($hn, $n), 0, 3));
+    if ($il) $bits[] = 'in line: ' . $il[0];
+    return [$sig, implode('; ', $bits)];
+}
+
+function sba_prices() {
+    $c = get_transient('sba_prices');
+    if (is_array($c)) return $c;
+    $r = wp_remote_get(SBA_PRICES, ['timeout' => 20]);
+    if (is_wp_error($r) || wp_remote_retrieve_response_code($r) !== 200) return null;
+    $j = json_decode(wp_remote_retrieve_body($r), true);
+    if (!is_array($j) || !isset($j['uk']) || !is_array($j['uk'])) return null;
+    set_transient('sba_prices', $j, 20 * MINUTE_IN_SECONDS);
+    return $j;
+}
+
+function sba_factor($value, $reason, $url, $observed, $precision = 'timestamp') {
+    return ['value' => max(0, min(5, (int) $value)), 'reason' => mb_substr($reason, 0, 300), 'source_url' => $url, 'observed_at' => gmdate('c', is_numeric($observed) ? (int) $observed : strtotime($observed . ' UTC')), 'time_precision' => $precision];
+}
+function sba_short($h) { $h = trim(preg_replace('/^.{2,80}? - /u', '', (string) $h)); return mb_strlen($h) > 90 ? mb_substr($h, 0, 88) . '…' : $h; }
+
+function sba_score_all($force = false) {
+    global $wpdb;
+    $prices = sba_prices();
+    if (!$prices) return;
+    $meta = get_option('sba_auto_meta', []);
+    if (!$force && ($meta['prices'] ?? '') === ($prices['generated'] ?? '') && time() - strtotime($meta['at'] ?? '2000-01-01') < 30 * MINUTE_IN_SECONDS) return;
+    $t = sba_table(); $m = sba_map_table();
+    $rows = $wpdb->get_results($wpdb->prepare(
+        "SELECT a.lei,a.published,a.company,a.headline,a.type,a.tag,a.routine,a.url,a.doc_checked,a.doc_signal,a.detail,m.ticker FROM $t a JOIN $m m ON m.lei=a.lei
+         WHERE m.ticker<>'' AND m.history IS NOT NULL AND a.published > %s AND (a.routine=0 OR a.tag='Buyback') ORDER BY a.published DESC",
+        gmdate('Y-m-d H:i:s', time() - 400 * DAY_IN_SECONDS)), ARRAY_A);
+    $by = [];
+    foreach ($rows as $r) { $r['ts'] = strtotime($r['published'] . ' UTC'); $by[$r['ticker']][] = $r; }
+    $now = time(); $out = []; $partial = 0;
+    foreach ($by as $ticker => $list) {
+        $key = sba_ykey($ticker);
+        $p = $prices['uk'][$key] ?? null;
+        $P = $p ? array_combine(array_slice($prices['fields'], 0, count($p)), $p) : null;
+        $f = ['catalyst' => sba_f_catalyst($list, $now), 'earnings' => sba_f_earnings($list, $now), 'momentum' => sba_f_momentum($P, $now),
+              'insider' => sba_f_insider($list, $now), 'risk' => sba_f_risk($list, $P, $now)];
+        $inputs = array_map(fn($x) => $x ? $x['value'] : null, array_values($f));
+        $complete = !in_array(null, $inputs, true);
+        if (!$complete) { $partial++; continue; }
+        $raw = $inputs[0] * 6 + $inputs[1] * 5 + $inputs[2] * 4 + $inputs[3] * 3 - $inputs[4] * 4;
+        $out[$key] = ['market' => 'LSE', 'symbol' => sba_display_ticker($ticker), 'company' => $list[0]['company'], 'factors' => $f, 'inputs' => $inputs,
+            'complete' => true, 'input_count' => 5, 'score' => max(0, min(100, (int) round($raw / 90 * 100))), 'reviewed_at' => gmdate('c'),
+            'price' => ['label' => $P['pxs'] ?? '', 'date' => $P['date'] ?? ''],
+            'method' => 'Automated rules v1', 'assessment' => 'Automated: fixed rules applied to official FCA filings and delayed daily prices. Not reviewed by a person.'];
+    }
+    uasort($out, fn($a, $b) => $b['score'] <=> $a['score']);
+    update_option('sba_auto_scores', $out, false);
+    update_option('sba_auto_meta', ['at' => gmdate('c'), 'prices' => $prices['generated'] ?? '', 'scored' => count($out), 'partial' => $partial,
+        'companies' => (int) $wpdb->get_var("SELECT COUNT(*) FROM $m WHERE ticker<>''"), 'with_history' => (int) $wpdb->get_var("SELECT COUNT(*) FROM $m WHERE ticker<>'' AND history IS NOT NULL")], false);
+}
+
+function sba_f_catalyst($list, $now) {
+    $cand = [];
+    foreach ($list as $r) {
+        if ($r['routine'] || $now - $r['ts'] > 30 * DAY_IN_SECONDS) continue;
+        $h = strtolower($r['headline']); $v = 2; $why = 'company update';
+        switch ($r['tag']) {
+            case 'Takeover': $v = preg_match('/firm|recommended|rule 2\.7|scheme/', $h) ? 5 : 4; $why = 'takeover or offer news'; break;
+            case 'Warning': $v = 0; $why = 'profit warning or going-concern language'; break;
+            case 'Suspension': $v = preg_match('/restor/', $h) ? 2 : 0; $why = 'trading suspension or cancellation notice'; break;
+            case 'Results':
+                $map = ['e5' => 5, 'e4' => 4, 'e3' => 3, 'e2' => 2, 'e1' => 1, 'e0' => 0];
+                $v = $map[$r['doc_signal']] ?? 3; $why = isset($map[$r['doc_signal']]) ? 'results/trading statement (' . ($r['detail'] ?: 'no clear direction') . ')' : 'results/trading statement'; break;
+            case 'Contract': case 'Trial / regulatory': case 'Drilling / resources':
+                if (preg_match('/delay|fail|terminat|negative|halt|withdraw|suspend|did not meet|unsuccessful/', $h)) { $v = 1; $why = 'adverse ' . strtolower($r['tag']) . ' news'; }
+                elseif (preg_match('/award|\bwin\b|\bwon\b|positive|approv|success|discover|significant|record|extension|increase|upgrade|high[- ]grade|commercial|first|order/', $h)) { $v = 4; $why = 'positive ' . strtolower($r['tag']) . ' news'; }
+                else { $v = 3; $why = strtolower($r['tag']) . ' news'; }
+                break;
+            case 'Acquisition / disposal': $v = 3; $why = 'acquisition or disposal'; break;
+            case 'Fundraise': $v = 2; $why = 'fundraise (dilution counted under risk)'; break;
+            case 'Director dealing': $v = $r['doc_signal'] === 'buy' ? 3 : 2; $why = $r['doc_signal'] === 'buy' ? 'director share purchase' : 'director dealing'; break;
+        }
+        $cand[] = [$v, $r, $why];
+    }
+    if ($cand) {
+        $neg = array_filter($cand, fn($c) => $c[0] <= 1);
+        usort($cand, fn($a, $b) => $b[0] <=> $a[0] ?: $b[1]['ts'] <=> $a[1]['ts']);
+        $pick = $neg ? array_values($neg)[0] : $cand[0];
+        return sba_factor($pick[0], 'Most significant filing in the last 30 days: ' . $pick[2] . ', "' . sba_short($pick[1]['headline']) . '" (' . gmdate('j M Y', $pick[1]['ts']) . ').', $pick[1]['url'], $pick[1]['ts']);
+    }
+    foreach ($list as $r) {
+        if ($r['routine']) continue;
+        if ($now - $r['ts'] <= 90 * DAY_IN_SECONDS) return sba_factor(1, 'No material filing in the last 30 days. Latest: "' . sba_short($r['headline']) . '" (' . gmdate('j M Y', $r['ts']) . ').', $r['url'], $r['ts']);
+        return sba_factor(0, 'No material filing in the last 90 days. Latest: "' . sba_short($r['headline']) . '" (' . gmdate('j M Y', $r['ts']) . ').', $r['url'], $r['ts']);
+    }
+    return null;
+}
+function sba_f_earnings($list, $now) {
+    foreach ($list as $r) {
+        if (!in_array($r['tag'], ['Results', 'Warning'], true) || $now - $r['ts'] > 200 * DAY_IN_SECONDS) continue;
+        if ($r['tag'] === 'Warning' && !preg_match('/^e\d$/', $r['doc_signal'])) return sba_factor(0, 'Profit warning or going-concern statement: "' . sba_short($r['headline']) . '" (' . gmdate('j M Y', $r['ts']) . ').', $r['url'], $r['ts']);
+        if (!preg_match('/^e(\d)$/', $r['doc_signal'], $mm)) continue; // unread (PDF) or no clear statement: try the previous one
+        $txt = ['0' => 'trading below expectations or guidance reduced', '1' => 'mostly negative trading language', '2' => 'mixed trading language', '3' => 'trading in line / modestly positive', '4' => 'positive trading, ahead of expectations or strong growth', '5' => 'ahead of expectations or guidance raised, with strong growth'][$mm[1]];
+        return sba_factor((int) $mm[1], 'Latest results or trading update, "' . sba_short($r['headline']) . '" (' . gmdate('j M Y', $r['ts']) . '): ' . $txt . ($r['detail'] ? ' (' . $r['detail'] . ')' : '') . '.', $r['url'], $r['ts']);
+    }
+    return null;
+}
+function sba_f_momentum($P, $now) {
+    if (!$P || empty($P['ma50']) || empty($P['px']) || empty($P['date']) || $now - strtotime($P['date']) > 7 * DAY_IN_SECONDS) return null;
+    $v = 0; $bits = [];
+    $px = (float) $P['px']; $ma50 = (float) $P['ma50']; $ma200 = $P['ma200'] !== null ? (float) $P['ma200'] : null;
+    if ($px > $ma50) $v++; $bits[] = ($px > $ma50 ? 'above' : 'below') . ' its 50-day average';
+    if ($ma200) { if ($px > $ma200) $v++; if ($ma50 > $ma200) $v++; $bits[] = ($px > $ma200 ? 'above' : 'below') . ' its 200-day average'; }
+    if ($P['d20'] !== null) { if ($P['d20'] >= 5) $v++; if ($P['d20'] <= -15) $v--; $bits[] = sprintf('%+.1f%% over 20 trading days', $P['d20']); }
+    if ($P['fromHi'] !== null) { if ($P['fromHi'] >= -10) $v++; $bits[] = sprintf('%.1f%% from its 12-month high', $P['fromHi']); }
+    return sba_factor($v, 'Price ' . $P['pxs'] . ' on ' . $P['date'] . ': ' . implode(', ', $bits) . '.', SBA_PRICES_PAGE, $P['date'], 'date');
+}
+function sba_f_insider($list, $now) {
+    $buy = $sell = 0; $last = null; $pending = false; $bb = null;
+    foreach ($list as $r) {
+        $age = $now - $r['ts'];
+        if ($r['tag'] === 'Buyback' && $age <= 90 * DAY_IN_SECONDS && !$bb) $bb = $r;
+        if ($r['tag'] !== 'Director dealing' || $age > 180 * DAY_IN_SECONDS) continue;
+        if (!$r['doc_checked']) { $pending = true; continue; }
+        if ($r['doc_signal'] === 'buy') { $buy++; $last = $last ?: $r; }
+        elseif ($r['doc_signal'] === 'sell') { $sell++; $last = $last ?: $r; }
+        elseif ($r['doc_signal'] === 'mixed') { $buy++; $sell++; $last = $last ?: $r; }
+    }
+    if ($pending) return null; // wait until every recent dealing notice has been read
+    if ($buy >= 2 && !$sell) $v = 5; elseif ($buy && !$sell) $v = 4; elseif ($buy > $sell) $v = 3; elseif ($sell >= 3 && !$buy) $v = 0; elseif ($sell > $buy) $v = 1; else $v = 2;
+    if ($bb && !$sell && $v < 5) $v++;
+    $txt = "Director dealings in the last 180 days: $buy purchase notice(s), $sell sale notice(s) (awards, options and plan shares ignored)" . ($bb ? '; company share buyback active in the last 90 days' : '') . '.';
+    $src = $last ?: $bb;
+    return $src ? sba_factor($v, $txt, $src['url'], $src['ts']) : sba_factor($v, $txt, SBA_NSM_PAGE, $now);
+}
+function sba_f_risk($list, $P, $now) {
+    if (!$P) return null;
+    $v = 2; $bits = []; $src = null;
+    foreach ($list as $r) {
+        $age = $now - $r['ts'];
+        if ($r['tag'] === 'Warning' && $age <= 365 * DAY_IN_SECONDS && !isset($w)) { $w = 1; $v += 2; $bits[] = 'profit warning or going-concern language (' . gmdate('M Y', $r['ts']) . ')'; $src = $src ?: $r; }
+        if ($r['tag'] === 'Fundraise' && $age <= 180 * DAY_IN_SECONDS && !isset($fr)) { $fr = 1; $v += 1; $bits[] = 'fundraise or new shares (' . gmdate('M Y', $r['ts']) . ')'; $src = $src ?: $r; }
+        if ($r['tag'] === 'Suspension' && $age <= 365 * DAY_IN_SECONDS && !preg_match('/restor/i', $r['headline']) && !isset($su)) { $su = 1; $v += 1; $bits[] = 'suspension or cancellation notice'; $src = $src ?: $r; }
+        if (preg_match('/going concern|material uncertainty/', $r['detail']) && $age <= 365 * DAY_IN_SECONDS && !isset($gc)) { $gc = 1; $v += 1; $bits[] = 'going-concern wording in results'; $src = $src ?: $r; }
+    }
+    if (empty($P['liquid'])) { $v++; $bits[] = 'thinly traded'; }
+    if (isset($P['px']) && (float) $P['px'] < 5 && substr((string) $P['pxs'], -1) === 'p') { $v++; $bits[] = 'share price under 5p'; }
+    if (($P['val'] ?? 0) >= 5000000) { $v--; $bits[] = 'large and heavily traded (lower risk)'; }
+    $txt = 'Risk flags: ' . ($bits ? implode('; ', $bits) : 'none found beyond normal equity risk') . '.';
+    return $src ? sba_factor($v, $txt, $src['url'], $src['ts']) : sba_factor($v, $txt, SBA_PRICES_PAGE, $P['date'], 'date');
+}
+
+function sba_rest_scores() {
+    $r = rest_ensure_response(['items' => array_values(get_option('sba_auto_scores', [])), 'meta' => get_option('sba_auto_meta', []),
+        'method' => 'Automated rules v1: catalyst x6 + earnings x5 + momentum x4 + insider x3 - risk x4, scaled to 0-100. Inputs come from FCA NSM filings and delayed daily prices. Companies missing any input are not scored.']);
+    $r->header('Cache-Control', 'public, max-age=300');
+    return $r;
+}
+function sba_rest_tickers() {
+    global $wpdb;
+    $m = sba_map_table();
+    $rows = $wpdb->get_results("SELECT ticker,name FROM $m WHERE ticker<>''", ARRAY_A);
+    $items = array_map(fn($r) => ['t' => sba_display_ticker($r['ticker']), 'y' => sba_ykey($r['ticker']), 'n' => $r['name']], $rows ?: []);
+    $r = rest_ensure_response(['items' => $items, 'count' => count($items)]);
+    $r->header('Cache-Control', 'public, max-age=900');
+    return $r;
+}
+
 /* ------------------------------------------------------------------ REST API */
 add_action('rest_api_init', function () {
     register_rest_route('stockbell/v1', '/announcements', ['methods' => 'GET', 'permission_callback' => '__return_true', 'callback' => 'sba_rest']);
+    register_rest_route('stockbell/v1', '/auto-scores', ['methods' => 'GET', 'permission_callback' => '__return_true', 'callback' => 'sba_rest_scores']);
+    register_rest_route('stockbell/v1', '/tickers', ['methods' => 'GET', 'permission_callback' => '__return_true', 'callback' => 'sba_rest_tickers']);
 });
 function sba_rest($req) {
     global $wpdb;
