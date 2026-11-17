@@ -2,12 +2,12 @@
 /**
  * Plugin Name: StockBell Announcements
  * Description: Every UK regulated announcement from the FCA National Storage Mechanism (NSM), tagged, searchable and linked to the official document. Collected on this server every five minutes. Tickers resolved via GLEIF (LEI to ISIN) and OpenFIGI (ISIN to London ticker). Also builds automated five-factor scores from each company's filings and delayed daily prices.
- * Version: 1.1.0
+ * Version: 1.1.1
  * Author: StockBell
  */
 defined('ABSPATH') || exit;
 
-define('SBA_VERSION', '1.1.0');
+define('SBA_VERSION', '1.1.1');
 define('SBA_PRICES', 'https://raw.githubusercontent.com/Lihanor72/stockpicker/main/data/prices.json');
 define('SBA_PRICES_PAGE', 'https://github.com/Lihanor72/stockpicker/blob/main/data/prices.json');
 define('SBA_NSM_PAGE', 'https://data.fca.org.uk/#/nsm/nationalstoragemechanism');
@@ -54,7 +54,7 @@ function sba_install() {
 ) $c;");
     update_option('sba_db_version', SBA_VERSION, false);
     if (!wp_next_scheduled('sba_collect')) wp_schedule_event(time() + 60, 'sba_five_minutes', 'sba_collect');
-    if (!wp_next_scheduled('sba_enrich')) wp_schedule_event(time() + 150, 'sba_five_minutes', 'sba_enrich');
+    wp_clear_scheduled_hook('sba_enrich'); // scoring work runs from the server cron via run-enrich.php
 }
 register_deactivation_hook(__FILE__, function () { wp_clear_scheduled_hook('sba_collect'); wp_clear_scheduled_hook('sba_enrich'); });
 add_action('plugins_loaded', function () { if (get_option('sba_db_version') !== SBA_VERSION) sba_install(); });
@@ -236,15 +236,15 @@ function sba_norm_name($s) {
  * (b) delayed daily prices produced by the free GitHub scan. A factor that the data cannot
  * establish is left empty, and a company without all five factors gets no score.
  */
-add_action('sba_enrich', 'sba_enrich');
-function sba_enrich() {
+/* Runs from the server's own cron (run-enrich.php, PHP CLI) so it is not cut off by web request time limits. */
+function sba_enrich($backfill = 90, $docs = 200) {
     if (get_transient('sba_enrich_lock')) return;
-    set_transient('sba_enrich_lock', 1, 200);
-    @set_time_limit(170);
+    set_transient('sba_enrich_lock', 1, $docs + 60);
+    @set_time_limit($docs + 50);
     $start = microtime(true);
     try {
-        sba_backfill($start + 35);
-        sba_read_docs($start + 75);
+        sba_backfill($start + $backfill);
+        sba_read_docs($start + $docs);
         sba_score_all();
     } finally {
         delete_transient('sba_enrich_lock');
@@ -310,12 +310,13 @@ function sba_doc_text($html) {
 }
 /** PDMR notification: classify each "Nature of the transaction" as buy, sell or other (awards, options, SIP, vesting). */
 function sba_read_dealing($txt) {
-    preg_match_all('/Nature of the transaction:?\s*(.{3,160}?)(?=\s*(?:\(?c\)|c\.|Price\(s\)|Price and volume|$))/iu', $txt, $mm);
+    preg_match_all('/Nature of (?:the )?transaction:?\s*(.{3,160}?)(?=\s*(?:\(?c\)|c\.|Price\(s\)|Price and volume|$))/iu', $txt, $mm);
     if (!$mm[1]) return ['unclear', ''];
     $buy = $sell = $other = 0;
     foreach ($mm[1] as $n) {
         $l = strtolower($n);
-        if (preg_match('/award|grant|vest|option|sharesave|\bsip\b|share incentive|incentive plan|ltip|deferred|bonus|dividend reinvest|\bdrip\b|transfer|gift|nil[- ]cost|release|conditional|lapse|partnership shares|matching shares|free shares|exercise|settle/', $l)) $other++;
+        if (preg_match('/\bisa\b|bed[- ]and|\bsipp\b|\bnotes?\b|\bbonds?\b|award|grant|\bvest|option|sharesave|\bsip\b|share incentive|incentive plan|ltip|deferred|bonus|dividend reinvest|\bdrip\b|transfer|gift|nil[- ]cost|release|conditional|lapse|partnership shares|matching shares|free shares|exercise|settle/', $l)) $other++;
+        elseif (preg_match('/purchase|acquisition|acquired|bought|\bbuy\b|subscri/', $l) && preg_match('/\bsale\b|\bsold\b|disposal|\bsell/', $l)) $other++; // sale and purchase together: a switch, not a view
         elseif (preg_match('/purchase|acquisition|acquired|bought|\bbuy\b|subscri/', $l)) $buy++;
         elseif (preg_match('/\bsale\b|\bsold\b|disposal|disposed|\bsell/', $l)) $sell++;
         else $other++;
@@ -339,7 +340,7 @@ function sba_read_results($txt) {
     elseif (count($p) >= 2 && !$n) $sig = 'e4';
     elseif ($il) $sig = $n ? 'e2' : 'e3';
     elseif (count($p) > count($n)) $sig = 'e3';
-    elseif (count($n) > count($p)) $sig = 'e1';
+    elseif (count($n) > count($p)) $sig = count($n) >= 2 ? 'e1' : 'e2';
     elseif ($p || $n) $sig = 'e2';
     else $sig = 'none';
     $bits = [];
