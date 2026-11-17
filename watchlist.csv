@@ -1,0 +1,136 @@
+ticker,yahoo,market,name
+GATC,GATC.L,AIM,Gattaca
+IXI,IXI.L,AIM,IXICO
+TPX,TPX.L,AIM,TPXimpact
+HDD,HDD.L,AIM,Hardide
+TUN,TUN.L,AIM,Tungsten West
+PWR,PWR.L,AIM,Power Probe
+LIT,LIT.L,AIM,Litigation Capital Mgmt
+ETON,ETON,US,Eton Pharmaceuticals
+PONY,PONY,US,Pony AI
+CRPR,CRPR.L,AIM,James Cropper
+DIAL,DIAL.L,AIM,Diales
+NIOX,NIOX.L,AIM,NIOX Group
+ARBB,ARBB.L,AIM,Arbuthnot Banking
+GELN,GELN.L,AIM,Gelion
+ITM,ITM.L,AIM,ITM Power
+TAM,TAM.L,AIM,Tatton Asset Management
+ITIM,ITIM.L,AIM,Itim Group
+1SN,1SN.L,UK Main,First Tin
+FUM,FUM.L,AIM,Futura Medical
+LDG,LDG.L,AIM,Logistics Development Group
+NESR,NESR,US,National Energy Services Reunited
+FWRG,FWRG,US,First Watch Restaurant Group
+MLYS,MLYS,US,Mineralys Therapeutics
+AT.,AT.L,AIM,Ashtead Technology
+ELCO,ELCO.L,AIM,Eleco
+TIME,TIME.L,AIM,Time Finance
+DNM,DNM.L,AIM,Dianomi
+RFX,RFX.L,AIM,Ramsdens Holdings
+AMS,AMS.L,AIM,Advanced Medical Solutions
+80M,80M.L,AIM,80 Mile
+MIND,MIND.L,AIM,Mind Gym
+KP2,KP2.L,AIM,Kore Potash
+MCG,MCG.L,UK Main,Mobico Group
+LIKE,LIKE.L,AIM,Likewise Group
+TUNE,TUNE.L,AIM,Focusrite
+GRID,GRID.L,UK Main,Gresham House Energy Storage Fund
+STEM,STEM.L,UK Main,SThree
+COGT,COGT,US,Cogent Biosciences
+AEHR,AEHR,US,Aehr Test Systems
+SEZL,SEZL,US,Sezzle
+ACG,ACG.L,UK Main,ACG Metals
+TRU,TRU.L,AIM,TruFin
+HELE,HELE,US,Helen of Troy
+FORG,FORG.L,AIM,Forgent
+OMI,OMI.L,AIM,Orosur Mining
+SWG,SWG.L,AIM,Shearwater Group
+BGEO,BGEO.L,FTSE,Lion Finance Group
+BARC,BARC.L,FTSE,Barclays
+FRES,FRES.L,FTSE,Fresnillo
+APP,APP,US Large,AppLovin
+RS1,RS1.L,FTSE,RS Group
+MGNS,MGNS.L,FTSE,Morgan Sindall
+VSVS,VSVS.L,FTSE,Vesuvius
+AMD,AMD,US Large,Advanced Micro Devices
+NVDA,NVDA,US Large,Nvidia
+EAH,EAH.L,AIM,ECO Animal Health
+LORD,LORD.L,AIM,Lords Group Trading
+BILN,BILN.L,AIM,Billington Holdings
+GLE,GLE.L,UK Main,MJ Gleeson
+FROG,FROG,US,JFrog
+NET,NET,US Large,Cloudflare
+ABNB,ABNB,US Large,Airbnb
+WINE,WINE.L,AIM,Naked Wines
+FDBK,FDBK.L,AIM,Feedback
+RFG,RFG.L,AIM,Roebuck Food Group
+FIN,FIN.L,AIM,Finseta
+SEE,SEE.L,AIM,Seeing Machines
+VIR,VIR,US,Vir Biotechnology
+SRT,SRT.L,AIM,SRT Marine Systems
+HPOW,HPOW.L,AIM,H-Power
+MKA,MKA.L,AIM,Mkango Magnetic Materials
+IONS,IONS,US,Ionis Pharmaceuticals
+KNOS,KNOS.L,FTSE,Kainos Group
+MNO,MNO.L,FTSE,Meridian Mining
+ANTO,ANTO.L,FTSE,Antofagasta
+NRG,NRG,US Large,NRG Energy
+CWR,CWR.L,FTSE,Ceres Power
+AEO,AEO.L,AIM,Aeorema Communications
+FXPO,FXPO.L,UK Main,Ferrexpo
+TLS,TLS,US,Telos
+DCTH,DCTH,US,Delcath Systems
+LINC,LINC,US,Lincoln Educational
+SANM,SANM,US,Sanmina
+APPS,APPS,US,Digital Turbine
+JANX,JANX,US,Janux Therapeutics
+SGRY,SGRY,US,Surgery Partners
+ECPG,ECPG,US,Encore Capital Group
+AVT,AVT,US,Avnet
+VOD,VOD.L,FTSE,Vodafone
+AVON,AVON.L,FTSE,Avon Technologies
+AVGO,AVGO,US Large,Broadcom
+TTWO,TTWO,US Large,Take-Two Interactive
+WOSG,WOSG.L,FTSE,Watches of Switzerland
+RSW,RSW.L,FTSE,Renishaw
+BA.,BA.L,FTSE,BAE Systems
+EDX,EDX.L,AIM,EDX Medical
+ZOO,ZOO.L,AIM,Zoo Digital
+KDNC,KDNC.L,AIM,Cadence Minerals
+ZIOC,ZIOC.L,AIM,Zanaga Iron Ore
+CNSL,CNSL.L,AIM,Cambridge Nutritional Sciences
+SENS,SENS,US,Senseonics
+QMCO,QMCO,US,Quantum Corp
+AAON,AAON,US,AAON
+PEPG,PEPG,US,PepGen
+JBI,JBI,US,Janus International
+GRPN,GRPN,US,Groupon
+RKLB,RKLB,US Large,Rocket Lab
+GFL,GFL,US Large,GFL Environmental
+VG,VG,US Large,Venture Global
+BW,BW,US,Babcock & Wilcox
+DIA,DIA.L,UK Main,Dialight
+RCN,RCN.L,AIM,Redcentric
+FRAN,FRAN.L,AIM,Franchise Brands
+ZIP,ZIP,US,ZipRecruiter
+AMRC,AMRC,US,Ameresco
+PAYS,PAYS,US,Paysign
+FCH,FCH.L,FTSE,Funding Circle
+MKS,MKS.L,FTSE,Marks & Spencer
+PTEC,PTEC.L,FTSE,Playtech
+OXIG,OXIG.L,FTSE,Oxford Instruments
+AMP,AMP.L,AIM,Ampeak Energy
+BIRD,BIRD.L,AIM,Blackbird
+QED,QED.L,AIM,Quadrise
+CAV,CAV.L,AIM,Cavendish Financial
+GEVO,GEVO,US,Gevo
+RSKD,RSKD,US,Riskified
+FOSL,FOSL,US,Fossil Group
+SATL,SATL,US,Satellogic
+FORM,FORM,US,FormFactor
+BV,BV,US,BrightView
+SPX,SPX.L,FTSE,Spirax Group
+ICG,ICG.L,FTSE,ICG
+ITV,ITV.L,FTSE,ITV
+TW.,TW.L,FTSE,Taylor Wimpey
+CRWV,CRWV,US Large,CoreWeave

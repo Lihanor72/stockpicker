@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1020">
+<meta name="robots" content="noindex, nofollow">
+<title>Stockpicker Auto-scan</title>
+<style>
+:root{--bg:#0b1020;--panel:#121a2e;--panel2:#18223a;--line:#24304d;--text:#e7ecf6;--muted:#8d9ab6;
+--green:#22c55e;--green-bg:rgba(34,197,94,.12);--amber:#f5b83d;--amber-bg:rgba(245,184,61,.12);
+--blue:#5b9cff;--blue-bg:rgba(91,156,255,.12);--red:#f0606a;--red-bg:rgba(240,96,106,.12)}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 Inter,system-ui,-apple-system,sans-serif}
+a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:1180px;margin:0 auto;padding:22px 20px 60px}
+h1{font-size:26px;margin:0;font-weight:800;letter-spacing:-.02em}h1 span{color:var(--green)}
+.sub{color:var(--muted);font-size:13.5px}
+.top{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
+.stamp{font-size:12px;color:var(--muted);border:1px solid var(--line);padding:6px 10px;border-radius:8px;font-family:ui-monospace,monospace}
+.disc{background:var(--amber-bg);border:1px solid rgba(245,184,61,.35);color:#f3dca8;border-radius:10px;padding:9px 13px;font-size:12.5px;margin:14px 0}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 14px;cursor:pointer}
+.kpi .l{font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}.kpi .v{font-size:22px;font-weight:700}
+nav{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 14px}
+nav button,.chip{border:1px solid var(--line);background:var(--panel);color:var(--muted);padding:7px 12px;border-radius:999px;font:inherit;font-size:13px;font-weight:600;cursor:pointer}
+nav button.on,.chip.on{color:var(--text);border-color:var(--green);background:var(--green-bg)}
+.controls{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+.spacer{flex:1}
+input[type=search]{background:var(--panel);border:1px solid var(--line);color:var(--text);border-radius:8px;padding:7px 10px;font:inherit;font-size:14px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px}
+.panel h2{margin:0 0 4px;font-size:17px}.note{font-size:12.5px;color:var(--muted);margin:0 0 10px}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th,td{padding:8px 9px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap;vertical-align:top}
+th{color:var(--muted);font-weight:600;font-size:11.5px;text-transform:uppercase;letter-spacing:.05em}
+td.n,th.n{text-align:right;font-family:ui-monospace,monospace}
+td.w{white-space:normal;min-width:240px;font-size:12.5px}
+.tk{font-family:ui-monospace,monospace;font-weight:700}
+.nm{color:var(--muted);font-size:12px;max-width:190px;overflow:hidden;text-overflow:ellipsis;display:block}
+.up{color:var(--green)}.dn{color:var(--red)}
+.tag{display:inline-block;font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:999px;margin:1px 3px 1px 0;text-transform:uppercase;letter-spacing:.03em}
+.g{color:var(--green);background:var(--green-bg)}.r{color:var(--red);background:var(--red-bg)}.b{color:var(--blue);background:var(--blue-bg)}.a{color:var(--amber);background:var(--amber-bg)}
+.empty{color:var(--muted);padding:14px 4px;font-size:13.5px}
+.wl{color:var(--amber);font-size:11px;margin-left:4px}
+footer{margin-top:26px;font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px}
+@media (max-width:600px){.wrap{padding:14px 16px 40px}h1{font-size:22px}.kpis{grid-template-columns:1fr 1fr}.kpi .v{font-size:19px}
+ th,td{padding:7px 6px}.hide-s{display:none}td.w{min-width:200px}input[type=search]{width:100%}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div><h1>Stock<span>picker</span> auto-scan</h1>
+      <div class="sub">Free automatic scan of AIM / UK small caps, FTSE 350 and US stocks — prices, breakouts, oversold names, RNS and takeovers</div></div>
+    <div class="stamp" id="stamp">Loading…</div>
+  </div>
+  <div class="disc"><b>Screening tool, not advice.</b> Built by a script with no human or AI judgement. Prices come from Yahoo Finance, are delayed and use the last daily bar. A flag is a reason to look, not a reason to buy — check the RNS, the live price and the spread first.</div>
+
+  <div class="kpis" id="kpis"></div>
+  <nav id="tabs">
+    <button data-v="movers" class="on">News movers</button>
+    <button data-v="breakouts">Breakouts</button>
+    <button data-v="testing">Testing highs</button>
+    <button data-v="oversold">Oversold bounce</button>
+    <button data-v="watchlist">Watchlist</button>
+    <button data-v="takeovers">Takeovers</button>
+    <button data-v="rns">RNS feed</button>
+  </nav>
+  <div class="controls" id="mk">
+    <span class="chip on" data-m="all">All</span><span class="chip" data-m="uk">UK small / AIM</span><span class="chip" data-m="FTSE">FTSE 350</span><span class="chip" data-m="US">US small</span><span class="chip" data-m="US Large">US large</span>
+    <span class="spacer"></span><input type="search" id="q" placeholder="Search ticker or name">
+  </div>
+  <div id="view"></div>
+  <footer>
+    Data: Yahoo Finance via yfinance; RNS headlines link to Investegate; offer periods from the Takeover Panel disclosure table; index lists from Wikipedia. Updated automatically on weekdays by GitHub Actions. Not financial advice. Capital at risk.
+  </footer>
+</div>
+<script>
+const $=s=>document.querySelector(s);
+let D=null,V='movers',M='all',Q='';
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const pct=x=>x==null?'—':`<span class="${x>0?'up':x<0?'dn':''}">${x>0?'+':''}${x.toFixed(1)}%</span>`;
+const num=(x,d=1)=>x==null?'—':x.toFixed(d);
+const mkLabel=r=>r.m==='UK small'?'UK':r.m==='AIM'?'AIM':r.m;
+const chart=r=>{const tv=r.uk?`https://www.tradingview.com/chart/?symbol=LSE:${encodeURIComponent(r.t.replace(/\.$/,''))}`:`https://www.tradingview.com/chart/?symbol=${encodeURIComponent(r.t)}`;
+  return `<a href="${tv}" target="_blank" rel="noopener">Chart</a> · <a href="https://finance.yahoo.com/quote/${encodeURIComponent(r.y)}" target="_blank" rel="noopener">Yahoo</a>`};
+function inMarket(r){if(M==='all')return true;if(M==='uk')return r.uk&&r.m!=='FTSE';return r.m===M}
+function matchQ(r){if(!Q)return true;const s=(r.t+' '+(r.n||'')+' '+(r.c||'')+' '+(r.h||'')).toLowerCase();return s.includes(Q)}
+function newsCell(r){if(!r.news||!r.news.length)return r.uk?'<span class="note">No RNS found in last 3 days</span>':'<span class="note">US: check news</span>';
+  return r.news.map(n=>`<div><a href="${esc(n.u)}" target="_blank" rel="noopener">${esc(n.h)}</a> ${(n.pos||[]).map(k=>`<span class="tag g">${esc(k)}</span>`).join('')}${(n.neg||[]).map(k=>`<span class="tag r">${esc(k)}</span>`).join('')}${n.dilution?'<span class="tag r">dilution?</span>':''}</div>`).join('')}
+function tbl(rows,{news=false,extra=null}={}){
+  rows=rows.filter(inMarket).filter(matchQ);
+  if(!rows.length)return '<div class="empty">Nothing flagged for this filter in the latest scan.</div>';
+  return `<div class="tw"><table><thead><tr><th>Ticker</th><th>Mkt</th><th class="n">Price</th><th class="n">1d</th><th class="n">5d</th><th class="n hide-s">From high</th><th class="n hide-s">Vol ×</th><th class="n hide-s">RSI</th>${news?'<th>News</th>':''}${extra?`<th>${extra.h}</th>`:''}<th>Links</th></tr></thead><tbody>${
+  rows.map(r=>`<tr><td><span class="tk">${esc(r.t)}</span>${r.wl?'<span class="wl">★</span>':''}<span class="nm">${esc(r.n)}</span></td><td>${esc(mkLabel(r))}</td><td class="n">${esc(r.pxs)}<div class="note" style="margin:0">${esc((r.date||'').slice(5))}</div></td><td class="n">${pct(r.d1)}</td><td class="n">${pct(r.d5)}</td><td class="n hide-s">${pct(r.fromHi)}</td><td class="n hide-s">${num(r.rv)}</td><td class="n hide-s">${num(r.rsi,0)}</td>${news?`<td class="w">${newsCell(r)}</td>`:''}${extra?`<td class="w">${extra.f(r)}</td>`:''}<td>${chart(r)}</td></tr>`).join('')}</tbody></table></div>`}
+function sigFor(r){const t=[];if(r.newHigh)t.push('<span class="tag g">52w high</span>');else if(r.fromHi!=null&&r.fromHi>=-3)t.push('<span class="tag b">near high</span>');
+  if(r.trendUp)t.push('<span class="tag g">50>200</span>');if(r.ma50&&r.px<r.ma50)t.push('<span class="tag r">below 50d</span>');if(r.rsi!=null&&r.rsi<=30)t.push('<span class="tag a">RSI low</span>');if(r.rsi!=null&&r.rsi>=78)t.push('<span class="tag a">stretched</span>');return t.join('')||'<span class="note">—</span>'}
+const VIEWS={
+ movers:()=>`<div class="panel"><h2>News-driven movers</h2><p class="note">Big moves on heavy volume (UK ≥5%, US ≥8%, volume ≥1.5× normal), joined to any RNS in the last 3 days. Green tags = positive phrases found in the announcement (e.g. "ahead of expectations"); red = warning signs (placing, below expectations).</p>${tbl([...D.movers],{news:true})}</div>`,
+ breakouts:()=>`<div class="panel"><h2>Breakouts</h2><p class="note">Closed at a new 52-week high, up on the day, above the 50-day average, on volume ≥1.5× normal. Ranked by volume and move. A breakout is confirmed if it holds over the next few sessions.</p>${tbl(D.breakouts,{news:true})}</div>`,
+ testing:()=>`<div class="panel"><h2>Testing highs</h2><p class="note">Within 3% of the 52-week high with the 50-day above the 200-day and RSI under 78. Watch for a close through the high on volume.</p>${tbl(D.testing,{news:true})}</div>`,
+ oversold:()=>`<div class="panel"><h2>Oversold bounce candidates</h2><p class="note">Down ≥10% in 5 days with RSI ≤35, no warning/placing phrases in RNS for 10 days, and not sitting at the 52-week low. <b>Oversold is not a buy signal on its own</b> — wait for a higher low or a catalyst.</p>${tbl(D.oversold,{news:true})}</div>`,
+ watchlist:()=>`<div class="panel"><h2>Watchlist prices</h2><p class="note">Every name on your curated Stockpicker list, refreshed automatically. ★ = watchlist. Alerts: ${D.wlAlerts.length} names moved ≥5%, made a new high or broke below the 50-day today.</p>${tbl(D.watchlist,{news:true,extra:{h:'Signals',f:sigFor}})}</div>`,
+ takeovers:()=>{const t=D.takeovers||{};return `<div class="panel"><h2>Takeover Panel — companies in an offer period</h2><p class="note">${t.error?'<span class="dn">Could not read the Takeover Panel table on the last run — showing the last change log.</span> ':''}From the Panel's public disclosure table. New and removed offerees are logged below automatically. Check the RNS for terms and deadlines.</p>
+  ${(t.added||[]).length?`<p><span class="tag g">New today</span> ${t.added.map(esc).join(', ')}</p>`:''}${(t.removed||[]).length?`<p><span class="tag r">Removed today</span> ${t.removed.map(esc).join(', ')}</p>`:''}
+  <div class="tw"><table><thead><tr><th>Offeree</th><th>Offeror(s)</th></tr></thead><tbody>${(t.table||[]).filter(r=>!Q||(r.offeree+' '+r.offerors.join(' ')).toLowerCase().includes(Q)).map(r=>`<tr><td class="w"><b>${esc(r.offeree)}</b></td><td class="w">${r.offerors.length?r.offerors.map(esc).join('<br>'):'<span class="note">No named offeror</span>'}</td></tr>`).join('')}</tbody></table></div></div>
+  <div class="panel"><h2>Change log</h2>${(t.log||[]).length?`<div class="tw"><table><tbody>${t.log.map(x=>`<tr><td>${esc(x.d)}</td><td class="w">${esc(x.what)}</td></tr>`).join('')}</tbody></table></div>`:'<div class="empty">No changes logged yet — changes appear from the second run onward.</div>'}</div>`},
+ rns:()=>{let rows=D.rns.filter(matchQ);const only=$('#rnsOnly')?.checked??true;if(only)rows=rows.filter(x=>x.pos.length||x.neg.length||x.bid);
+  return `<div class="panel"><h2>RNS feed</h2><p class="note">UK announcements from the last 10 days (routine filings removed). Tags come from the headline only — open the RNS for detail. <label><input type="checkbox" id="rnsOnly" ${only?'checked':''}> Only tagged headlines</label></p>
+  <div class="tw"><table><thead><tr><th>Seen</th><th>Ticker</th><th>Headline</th><th>Tags</th></tr></thead><tbody>${rows.slice(0,300).map(x=>`<tr><td class="note">${esc(x.d.slice(5,16).replace('T',' '))}</td><td><span class="tk">${esc(x.t)}</span><span class="nm">${esc(x.c)}</span></td><td class="w"><a href="${esc(x.u)}" target="_blank" rel="noopener">${esc(x.h)}</a></td><td class="w">${x.pos.map(k=>`<span class="tag g">${esc(k)}</span>`).join('')}${x.neg.map(k=>`<span class="tag r">${esc(k)}</span>`).join('')}${x.bid?'<span class="tag b">bid</span>':''}</td></tr>`).join('')||'<tr><td colspan="4" class="empty">Nothing yet.</td></tr>'}</tbody></table></div></div>`}
+};
+function render(){if(!D)return;$('#view').innerHTML=VIEWS[V]();const c=$('#rnsOnly');if(c)c.onchange=()=>{const v=c.checked;render();$('#rnsOnly').checked=v}}
+function kpis(){const k=[['movers','News movers',D.movers.length],['breakouts','Breakouts',D.breakouts.length],['oversold','Oversold',D.oversold.length],['watchlist','Watchlist alerts',D.wlAlerts.length],['takeovers','Offer periods',(D.takeovers.table||[]).length]];
+  $('#kpis').innerHTML=k.map(([v,l,n])=>`<div class="kpi" data-v="${v}"><div class="l">${l}</div><div class="v">${n}</div></div>`).join('');
+  document.querySelectorAll('.kpi').forEach(e=>e.onclick=()=>go(e.dataset.v))}
+function go(v){V=v;document.querySelectorAll('#tabs button').forEach(b=>b.classList.toggle('on',b.dataset.v===v));render()}
+document.querySelectorAll('#tabs button').forEach(b=>b.onclick=()=>go(b.dataset.v));
+document.querySelectorAll('#mk .chip').forEach(c=>c.onclick=()=>{M=c.dataset.m;document.querySelectorAll('#mk .chip').forEach(x=>x.classList.toggle('on',x===c));render()});
+$('#q').oninput=e=>{Q=e.target.value.trim().toLowerCase();render()};
+fetch('data/auto.json?'+Date.now()).then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}).then(j=>{D=j;
+  $('#stamp').textContent='Scanned: '+j.generated+' · '+j.counts.priced+' shares priced';kpis();render()})
+ .catch(e=>{$('#stamp').textContent='No data yet';$('#view').innerHTML='<div class="panel"><h2>No scan data yet</h2><p class="note">The first automatic scan has not run yet. In GitHub, open Actions → "Stockpicker auto-scan" → Run workflow. It takes about 5–10 minutes.</p></div>'});
+</script>
+</body>
+</html>

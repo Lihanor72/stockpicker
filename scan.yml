@@ -1,0 +1,37 @@
+name: Stockpicker auto-scan
+
+on:
+  schedule:
+    # Weekdays, times in UTC (= UK time in winter, one hour earlier than UK in summer)
+    - cron: "35 7 * * 1-5"    # after the 7am RNS
+    - cron: "50 16 * * 1-5"   # after the London close
+    - cron: "30 21 * * 1-5"   # after the US close
+  workflow_dispatch: {}        # lets you press "Run workflow" by hand
+
+permissions:
+  contents: write
+
+concurrency:
+  group: scan
+  cancel-in-progress: false
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - run: python scan.py
+      - name: Save results
+        run: |
+          git config user.name "stockpicker-bot"
+          git config user.email "stockpicker-bot@users.noreply.github.com"
+          git add data/
+          git diff --cached --quiet || git commit -m "Auto-scan $(date -u +'%Y-%m-%d %H:%M')"
+          git pull --rebase --autostash || true
+          git push
