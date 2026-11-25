@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-24 19:02 UTC",
+ "generated": "2026-11-25 01:08 UTC",
  "note": "Shortlist from the free auto-scan. Prices from Yahoo (delayed, end of day for the last bar). Verify before use.",
  "takeovers": {
   "added": [],
@@ -8,99 +8,93 @@
  },
  "movers": [
   {
-   "t": "ALRT",
+   "t": "CPI",
    "m": "UK small",
-   "n": "Defence Holdings Plc",
-   "pxs": "0.61p",
-   "d1": 52.5,
-   "d5": 32.6,
-   "fromHi": -73.5,
-   "rv": 16.4,
-   "rsi": 55.0,
-   "sig": null,
-   "news": [
-    {
-     "h": "Defence Holdings Secures MoD Contract Extensi...",
-     "pos": [],
-     "neg": [],
-     "u": "https://www.investegate.co.uk/announcement/prn/defence-holdings-plc--alrt/defence-holdings-secures-mod-contract-extensi-/9891175"
-    }
-   ]
-  },
-  {
-   "t": "MDH",
-   "m": "UK small",
-   "n": "Mendell Helium Plc",
-   "pxs": "2.2p",
-   "d1": -26.7,
-   "d5": -29.0,
-   "fromHi": -63.3,
-   "rv": 5.3,
-   "rsi": 23.0,
-   "sig": null,
-   "news": [
-    {
-     "h": "Operations Update",
-     "pos": [],
-     "neg": [],
-     "u": "https://www.investegate.co.uk/announcement/rns/mendell-helium-plc--mdh/operations-update/9889885"
-    }
-   ]
-  },
-  {
-   "t": "AMTM",
-   "m": "US",
-   "n": "Amentum",
-   "pxs": "$24.74",
-   "d1": 19.8,
-   "d5": 16.6,
-   "fromHi": -35.1,
-   "rv": 3.5,
-   "rsi": 69.0,
+   "n": "CAPITA PLC",
+   "pxs": "62.5p",
+   "d1": -74.4,
+   "d5": -77.7,
+   "fromHi": -85.0,
+   "rv": 36.8,
+   "rsi": 14.0,
    "sig": null
   },
   {
-   "t": "COGT",
-   "m": "US",
-   "n": "Cogent Biosciences",
-   "pxs": "$33.49",
-   "d1": 19.1,
-   "d5": 20.2,
-   "fromHi": -23.4,
-   "rv": 2.1,
-   "rsi": 61.0,
-   "sig": null
-  },
-  {
-   "t": "PREM",
+   "t": "KEFI",
    "m": "UK small",
-   "n": "Premier African Minerals Ltd",
-   "pxs": "0.003p",
-   "d1": -18.8,
-   "d5": 8.3,
-   "fromHi": -95.7,
-   "rv": 1.7,
-   "rsi": 44.0,
+   "n": "Kefi Gold And Copper",
+   "pxs": "0.57p",
+   "d1": 32.6,
+   "d5": -6.6,
+   "fromHi": -72.5,
+   "rv": 1.9,
+   "rsi": 45.0,
    "sig": null,
    "news": [
     {
-     "h": "Creditor Settlement",
+     "h": "Statement re Share Price Movement",
      "pos": [],
      "neg": [],
-     "u": "https://www.investegate.co.uk/announcement/rns/premier-african-minerals-ltd--prem/creditor-settlement/9891582"
+     "u": "https://www.investegate.co.uk/announcement/rns/kefi-gold-and-copper--kefi/statement-re-share-price-movement/9887491"
     }
    ]
+  },
+  {
+   "t": "NVDA",
+   "m": "US Large",
+   "n": "Nvidia",
+   "pxs": "$165.05",
+   "d1": 31.5,
+   "d5": 5.7,
+   "fromHi": -32.2,
+   "rv": 4.4,
+   "rsi": 43.0,
+   "sig": null
+  },
+  {
+   "t": "CRST",
+   "m": "UK small",
+   "n": "Crest Nicholson Holdings",
+   "pxs": "44p",
+   "d1": -29.6,
+   "d5": -30.7,
+   "fromHi": -74.6,
+   "rv": 13.9,
+   "rsi": 20.0,
+   "sig": "Oversold",
+   "news": [
+    {
+     "h": "Trading and balance sheet update",
+     "pos": [],
+     "neg": [
+      "covenant"
+     ],
+     "u": "https://www.investegate.co.uk/announcement/rns/crest-nicholson-holdings--crst/trading-and-balance-sheet-update-/9887492"
+    }
+   ]
+  },
+  {
+   "t": "ALAB",
+   "m": "US Large",
+   "n": "Astera Labs",
+   "pxs": "$222.12",
+   "d1": 23.2,
+   "d5": 9.8,
+   "fromHi": -55.5,
+   "rv": 1.8,
+   "rsi": 46.0,
+   "sig": null
   },
   {
    "t": "MPAL",
    "m": "UK small",
    "n": "Medpal Ai Plc",
-   "pxs": "3.25p",
-   "d1": 18.6,
-   "d5": -12.2,
-   "fromHi": -59.9,
-   "rv": 1.8,
-   "rsi": 36.0,
+   "pxs": "2.74p",
+   "d1": -22.8,
+   "d5": -27.9,
+   "fromHi": -66.2,
+   "rv": 3.1,
+   "rsi": 27.0,
    "sig": null,
    "news": [
     {
@@ -117,396 +111,402 @@
    ]
   },
   {
-   "t": "ADI",
+   "t": "CRWV",
    "m": "US Large",
-   "n": "Analog Devices",
-   "pxs": "$313.99",
-   "d1": -17.1,
-   "d5": -18.2,
-   "fromHi": -29.6,
+   "n": "CoreWeave",
+   "pxs": "$48.33",
+   "d1": 22.3,
+   "d5": -3.1,
+   "fromHi": -65.0,
    "rv": 1.7,
-   "rsi": 33.0,
-   "sig": "Oversold"
+   "rsi": 43.0,
+   "sig": null
+  },
+  {
+   "t": "ABDP",
+   "m": "UK small",
+   "n": "Ab Dynamics",
+   "pxs": "877p",
+   "d1": 21.0,
+   "d5": 23.7,
+   "fromHi": -35.0,
+   "rv": 3.1,
+   "rsi": 65.0,
+   "sig": null,
+   "news": [
+    {
+     "h": "Shareholding in AB Dynamics plc",
+     "pos": [],
+     "neg": [],
+     "u": "https://www.investegate.co.uk/announcement/rns/ab-dynamics--abdp/shareholding-in-ab-dynamics-plc/9887552"
+    }
+   ]
+  },
+  {
+   "t": "DELL",
+   "m": "US Large",
+   "n": "Dell Technologies",
+   "pxs": "$334.91",
+   "d1": 20.5,
+   "d5": 4.5,
+   "fromHi": -43.8,
+   "rv": 2.1,
+   "rsi": 41.0,
+   "sig": null
+  },
+  {
+   "t": "NBIS",
+   "m": "US Large",
+   "n": "Nebius Group",
+   "pxs": "$97.80",
+   "d1": 20.3,
+   "d5": -8.7,
+   "fromHi": -67.4,
+   "rv": 2.2,
+   "rsi": 36.0,
+   "sig": null
+  },
+  {
+   "t": "ENET",
+   "m": "UK small",
+   "n": "Ethernity Networks Ltd",
+   "pxs": "0.004p",
+   "d1": -20.0,
+   "d5": 100.0,
+   "fromHi": -55.6,
+   "rv": 9.1,
+   "rsi": 67.0,
+   "sig": null,
+   "news": [
+    {
+     "h": "Exercise of Warrants",
+     "pos": [],
+     "neg": [],
+     "u": "https://www.investegate.co.uk/announcement/rns/ethernity-networks-ltd--enet/exercise-of-warrants-/9891241"
+    }
+   ]
+  },
+  {
+   "t": "MU",
+   "m": "US Large",
+   "n": "Micron Technology",
+   "pxs": "$707.70",
+   "d1": 19.0,
+   "d5": -1.6,
+   "fromHi": -43.6,
+   "rv": 1.7,
+   "rsi": 42.0,
+   "sig": null
+  },
+  {
+   "t": "MRVL",
+   "m": "US Large",
+   "n": "Marvell Technology",
+   "pxs": "$144.74",
+   "d1": 18.4,
+   "d5": -0.4,
+   "fromHi": -56.1,
+   "rv": 1.5,
+   "rsi": 39.0,
+   "sig": null
   },
   {
    "t": "HPE",
    "m": "US Large",
    "n": "Hewlett Packard Enterprise",
-   "pxs": "$40.18",
-   "d1": -16.3,
-   "d5": -12.8,
-   "fromHi": -45.4,
-   "rv": 1.5,
-   "rsi": 36.0,
+   "pxs": "$48.02",
+   "d1": 17.4,
+   "d5": 3.1,
+   "fromHi": -34.7,
+   "rv": 2.4,
+   "rsi": 45.0,
    "sig": null
   },
   {
-   "t": "KSS",
-   "m": "US",
-   "n": "Kohl's Corp.",
-   "pxs": "$24.49",
-   "d1": 15.5,
-   "d5": 6.1,
-   "fromHi": -4.3,
-   "rv": 1.6,
-   "rsi": 56.0,
-   "sig": null
+   "t": "CAR",
+   "m": "UK small",
+   "n": "Carclo",
+   "pxs": "44p",
+   "d1": 17.3,
+   "d5": 15.8,
+   "fromHi": -31.5,
+   "rv": 20.1,
+   "rsi": 62.0,
+   "sig": null,
+   "news": [
+    {
+     "h": "Half-year Financial Report",
+     "pos": [],
+     "neg": [],
+     "u": "https://www.investegate.co.uk/announcement/rns/carclo--car/half-year-financial-report/9887547"
+    }
+   ]
   },
   {
-   "t": "DLTR",
+   "t": "KMR",
+   "m": "UK small",
+   "n": "Kenmare Resources Cdi",
+   "pxs": "293p",
+   "d1": 17.2,
+   "d5": 12.3,
+   "fromHi": 0.3,
+   "rv": 5.8,
+   "rsi": 74.0,
+   "sig": "Breaking out",
+   "news": [
+    {
+     "h": "Form 38.5a Kenmare Resources PLC",
+     "pos": [],
+     "neg": [],
+     "u": "https://www.investegate.co.uk/announcement/rns/kenmare-resources-cdi---kmr/form-38-5a-kenmare-resources-plc/9891229"
+    },
+    {
+     "h": "Form 38.5a Kenmare Resources plc",
+     "pos": [],
+     "neg": [],
+     "u": "https://www.investegate.co.uk/announcement/rns/kenmare-resources-cdi---kmr/form-38-5a-kenmare-resources-plc/9891228"
+    }
+   ]
+  },
+  {
+   "t": "MPWR",
    "m": "US Large",
-   "n": "Dollar Tree",
-   "pxs": "$156.09",
-   "d1": 12.2,
-   "d5": 11.7,
-   "fromHi": 5.1,
+   "n": "Monolithic Power Systems",
+   "pxs": "$1,333.88",
+   "d1": 16.8,
+   "d5": 1.5,
+   "fromHi": -22.2,
    "rv": 1.5,
-   "rsi": 69.0,
-   "sig": "Breaking out"
-  },
-  {
-   "t": "RKH",
-   "m": "UK small",
-   "n": "Rockhopper Exploration",
-   "pxs": "56.5p",
-   "d1": -11.7,
-   "d5": -14.4,
-   "fromHi": -39.5,
-   "rv": 1.5,
-   "rsi": 34.0,
-   "sig": "Oversold"
-  },
-  {
-   "t": "ECEL",
-   "m": "UK small",
-   "n": "Eurocell",
-   "pxs": "138p",
-   "d1": 11.7,
-   "d5": 0.4,
-   "fromHi": -9.8,
-   "rv": 2.5,
-   "rsi": 51.0,
-   "sig": null,
-   "news": [
-    {
-     "h": "Director/PDMR Shareholding",
-     "pos": [],
-     "neg": [],
-     "u": "https://www.investegate.co.uk/announcement/rns/eurocell--ecel/director-pdmr-shareholding/9891781"
-    },
-    {
-     "h": "Trading Update",
-     "pos": [],
-     "neg": [],
-     "u": "https://www.investegate.co.uk/announcement/rns/eurocell--ecel/trading-update/9889829"
-    }
-   ]
-  },
-  {
-   "t": "CPI",
-   "m": "UK small",
-   "n": "CAPITA PLC",
-   "pxs": "69.3p",
-   "d1": 10.9,
-   "d5": -73.8,
-   "fromHi": -83.3,
-   "rv": 7.4,
-   "rsi": 16.0,
-   "sig": "Oversold"
-  },
-  {
-   "t": "AOM",
-   "m": "UK small",
-   "n": "Activeops",
-   "pxs": "76.5p",
-   "d1": 10.1,
-   "d5": -13.1,
-   "fromHi": -73.6,
-   "rv": 2.7,
-   "rsi": 24.0,
-   "sig": "Oversold",
-   "news": [
-    {
-     "h": "Interim Results",
-     "pos": [],
-     "neg": [
-      "subscription"
-     ],
-     "u": "https://www.investegate.co.uk/announcement/rns/activeops--aom/interim-results/9889901"
-    }
-   ]
-  },
-  {
-   "t": "AO",
-   "m": "FTSE",
-   "n": "AO World",
-   "pxs": "83.4p",
-   "d1": -9.3,
-   "d5": -7.8,
-   "fromHi": -29.0,
-   "rv": 16.6,
-   "rsi": 30.0,
+   "rsi": 52.0,
    "sig": null
   },
   {
-   "t": "MARS",
-   "m": "UK small",
-   "n": "Marston S",
-   "pxs": "52.6p",
-   "d1": -8.2,
-   "d5": -8.7,
-   "fromHi": -24.0,
-   "rv": 1.8,
+   "t": "ICHR",
+   "m": "US",
+   "n": "Ichor Holdings, Ltd.",
+   "pxs": "$31.60",
+   "d1": 15.8,
+   "d5": -6.1,
+   "fromHi": -72.2,
+   "rv": 1.6,
+   "rsi": 39.0,
+   "sig": null
+  },
+  {
+   "t": "KLAC",
+   "m": "US Large",
+   "n": "KLA Corporation",
+   "pxs": "$145.85",
+   "d1": 15.0,
+   "d5": 1.3,
+   "fromHi": -52.5,
+   "rv": 1.5,
+   "rsi": 46.0,
+   "sig": null
+  },
+  {
+   "t": "AMAT",
+   "m": "US Large",
+   "n": "Applied Materials",
+   "pxs": "$346.87",
+   "d1": 14.6,
+   "d5": -1.0,
+   "fromHi": -53.1,
+   "rv": 1.6,
+   "rsi": 43.0,
+   "sig": null
+  },
+  {
+   "t": "LRCX",
+   "m": "US Large",
+   "n": "Lam Research",
+   "pxs": "$209.76",
+   "d1": 14.5,
+   "d5": -0.5,
+   "fromHi": -52.2,
+   "rv": 1.5,
+   "rsi": 42.0,
+   "sig": null
+  },
+  {
+   "t": "TER",
+   "m": "US Large",
+   "n": "Teradyne",
+   "pxs": "$233.51",
+   "d1": 14.0,
+   "d5": 0.7,
+   "fromHi": -52.1,
+   "rv": 1.5,
+   "rsi": 40.0,
+   "sig": null
+  },
+  {
+   "t": "SMCI",
+   "m": "US Large",
+   "n": "Supermicro",
+   "pxs": "$24.53",
+   "d1": 13.3,
+   "d5": -2.0,
+   "fromHi": -52.3,
+   "rv": 1.5,
    "rsi": 38.0,
-   "sig": null,
-   "news": [
-    {
-     "h": "PRELIMINARY RESULTS",
-     "pos": [
-      "buyback"
-     ],
-     "neg": [],
-     "u": "https://www.investegate.co.uk/announcement/rns/marston-s--mars/preliminary-results-/9889963"
-    }
-   ]
-  },
-  {
-   "t": "ANTO",
-   "m": "FTSE",
-   "n": "Antofagasta",
-   "pxs": "2,546p",
-   "d1": -8.1,
-   "d5": -15.7,
-   "fromHi": -43.1,
-   "rv": 1.5,
-   "rsi": 30.0,
    "sig": null
   },
   {
-   "t": "POLR",
-   "m": "UK small",
-   "n": "Polar Capital Holdings",
-   "pxs": "658p",
-   "d1": -7.2,
-   "d5": -6.9,
-   "fromHi": -33.5,
-   "rv": 2.0,
-   "rsi": 35.0,
-   "sig": null,
-   "news": [
-    {
-     "h": "Unaudited Interim Results",
-     "pos": [],
-     "neg": [],
-     "u": "https://www.investegate.co.uk/announcement/rns/polar-capital-holdings--polr/unaudited-interim-results/9889872"
-    }
-   ]
-  },
-  {
-   "t": "HPOW",
-   "m": "AIM",
-   "n": "H-Power",
-   "pxs": "6.16p",
-   "d1": -6.7,
-   "d5": -9.1,
-   "fromHi": -65.6,
+   "t": "FXPO",
+   "m": "UK Main",
+   "n": "Ferrexpo",
+   "pxs": "25.38p",
+   "d1": 12.6,
+   "d5": -13.1,
+   "fromHi": -70.9,
    "rv": 1.5,
-   "rsi": 27.0,
+   "rsi": 39.0,
    "sig": null
   },
   {
-   "t": "SFR",
-   "m": "UK small",
-   "n": "Severfield",
-   "pxs": "40.5p",
-   "d1": 6.6,
-   "d5": 2.0,
-   "fromHi": -3.1,
-   "rv": 4.4,
-   "rsi": 59.0,
-   "sig": null,
-   "news": [
-    {
-     "h": "Interim Results",
-     "pos": [],
-     "neg": [],
-     "u": "https://www.investegate.co.uk/announcement/rns/severfield--sfr/interim-results/9889851"
-    }
-   ]
-  },
-  {
-   "t": "RNWH",
-   "m": "UK small",
-   "n": "Renew Holdings",
-   "pxs": "967p",
-   "d1": -6.1,
-   "d5": -8.6,
-   "fromHi": -13.8,
-   "rv": 2.2,
-   "rsi": 37.0,
-   "sig": null,
-   "news": [
-    {
-     "h": "Final Results",
-     "pos": [],
-     "neg": [
-      "impairment"
-     ],
-     "u": "https://www.investegate.co.uk/announcement/rns/renew-holdings--rnwh/final-results/9889905"
-    }
-   ]
-  },
-  {
-   "t": "AAL",
-   "m": "FTSE",
-   "n": "Anglo American plc",
-   "pxs": "3,141p",
-   "d1": -5.7,
-   "d5": -11.5,
-   "fromHi": -32.4,
-   "rv": 3.4,
-   "rsi": 32.0,
-   "sig": "Oversold"
-  },
-  {
-   "t": "CABP",
-   "m": "UK small",
-   "n": "Cab Payments Holdings 1 3P Wi",
-   "pxs": "87p",
-   "d1": 5.6,
-   "d5": 3.4,
-   "fromHi": -13.0,
-   "rv": 76.7,
-   "rsi": 65.0,
-   "sig": null,
-   "news": [
-    {
-     "h": "STATEMENT REGARDING PUBLICATION OF OFFER DOCUMENT",
-     "pos": [],
-     "neg": [],
-     "u": "https://www.investegate.co.uk/announcement/rns/cab-payments-holdings-1-3p-wi---cabp/statement-regarding-publication-of-offer-document/9891413"
-    },
-    {
-     "h": "Offer Update",
-     "pos": [],
-     "neg": [],
-     "u": "https://www.investegate.co.uk/announcement/rns/cab-payments-holdings-1-3p-wi---cabp/offer-update/9890865"
-    }
-   ]
-  },
-  {
-   "t": "HOC",
-   "m": "FTSE",
-   "n": "Hochschild Mining",
-   "pxs": "382p",
-   "d1": -5.3,
-   "d5": -13.7,
-   "fromHi": -55.1,
-   "rv": 1.8,
-   "rsi": 31.0,
+   "t": "KLIC",
+   "m": "US",
+   "n": "Kulicke and Soffa Industries, Inc.",
+   "pxs": "$61.54",
+   "d1": 12.5,
+   "d5": -6.3,
+   "fromHi": -54.7,
+   "rv": 1.7,
+   "rsi": 39.0,
    "sig": null
   }
  ],
  "breakouts": [
   {
-   "t": "DLTR",
-   "m": "US Large",
-   "n": "Dollar Tree",
-   "pxs": "$156.09",
-   "d1": 12.2,
-   "d5": 11.7,
-   "fromHi": 5.1,
-   "rv": 1.5,
-   "rsi": 69.0,
-   "sig": "Breaking out"
-  },
-  {
-   "t": "CPG",
-   "m": "FTSE",
-   "n": "Compass Group",
-   "pxs": "35.23p",
-   "d1": 4.2,
-   "d5": 5.9,
-   "fromHi": 0.9,
-   "rv": 1.7,
-   "rsi": 68.0,
+   "t": "KMR",
+   "m": "UK small",
+   "n": "Kenmare Resources Cdi",
+   "pxs": "293p",
+   "d1": 17.2,
+   "d5": 12.3,
+   "fromHi": 0.3,
+   "rv": 5.8,
+   "rsi": 74.0,
    "sig": "Breaking out",
    "news": [
     {
-     "h": "Share Buyback",
-     "pos": [
-      "buyback"
-     ],
-     "neg": [],
-     "u": "https://www.investegate.co.uk/announcement/rns/compass-group--cpg/share-buyback/9890734"
-    },
-    {
-     "h": "Shareholder consultation on US listing",
+     "h": "Form 38.5a Kenmare Resources PLC",
      "pos": [],
      "neg": [],
-     "u": "https://www.investegate.co.uk/announcement/rns/compass-group--cpg/shareholder-consultation-on-us-listing/9890084"
+     "u": "https://www.investegate.co.uk/announcement/rns/kenmare-resources-cdi---kmr/form-38-5a-kenmare-resources-plc/9891229"
+    },
+    {
+     "h": "Form 38.5a Kenmare Resources plc",
+     "pos": [],
+     "neg": [],
+     "u": "https://www.investegate.co.uk/announcement/rns/kenmare-resources-cdi---kmr/form-38-5a-kenmare-resources-plc/9891228"
     }
    ]
-  }
- ],
- "testing": [
+  },
   {
    "t": "HZO",
    "m": "US",
    "n": "MarineMax, Inc.",
    "pxs": "$52.96",
-   "d1": 0.0,
-   "d5": 0.2,
-   "fromHi": -0.0,
-   "rv": 0.8,
+   "d1": 0.3,
+   "d5": 0.3,
+   "fromHi": 0.1,
+   "rv": 1.5,
    "rsi": 71.0,
-   "sig": "Testing"
-  },
-  {
-   "t": "NATL",
-   "m": "US",
-   "n": "NCR Atleos",
-   "pxs": "$48.59",
-   "d1": 0.2,
-   "d5": 1.7,
-   "fromHi": -0.0,
-   "rv": 0.2,
-   "rsi": 64.0,
-   "sig": "Testing"
-  },
+   "sig": "Breaking out"
+  }
+ ],
+ "testing": [
   {
    "t": "SAFT",
    "m": "US",
    "n": "Safety Insurance Group, Inc.",
-   "pxs": "$104.56",
-   "d1": 0.0,
-   "d5": 0.2,
+   "pxs": "$104.54",
+   "d1": 0.1,
+   "d5": 0.0,
    "fromHi": -0.0,
-   "rv": 0.2,
+   "rv": 0.6,
    "rsi": 64.0,
+   "sig": "Testing"
+  },
+  {
+   "t": "DGX",
+   "m": "US Large",
+   "n": "Quest Diagnostics",
+   "pxs": "$263.12",
+   "d1": 1.9,
+   "d5": 0.3,
+   "fromHi": -0.0,
+   "rv": 0.9,
+   "rsi": 66.0,
+   "sig": "Testing"
+  },
+  {
+   "t": "KGF",
+   "m": "FTSE",
+   "n": "Kingfisher plc",
+   "pxs": "390p",
+   "d1": 2.7,
+   "d5": 3.2,
+   "fromHi": -0.0,
+   "rv": 1.0,
+   "rsi": 68.0,
+   "sig": "Testing",
+   "news": [
+    {
+     "h": "Q3 Trading Update",
+     "pos": [],
+     "neg": [],
+     "u": "https://www.investegate.co.uk/announcement/rns/kingfisher--kgf/q3-trading-update/9889835"
+    }
+   ]
+  },
+  {
+   "t": "ENR",
+   "m": "US",
+   "n": "Energizer",
+   "pxs": "$28.97",
+   "d1": 1.4,
+   "d5": 19.0,
+   "fromHi": -0.1,
+   "rv": 1.2,
+   "rsi": 77.0,
    "sig": "Testing"
   },
   {
    "t": "TECH",
    "m": "US Large",
    "n": "Bio-Techne",
-   "pxs": "$72.86",
-   "d1": 0.1,
-   "d5": 0.3,
-   "fromHi": -0.0,
-   "rv": 0.6,
-   "rsi": 59.0,
+   "pxs": "$72.80",
+   "d1": 0.2,
+   "d5": 0.0,
+   "fromHi": -0.1,
+   "rv": 1.3,
+   "rsi": 57.0,
    "sig": "Testing"
   },
   {
-   "t": "OGN",
+   "t": "FGP",
+   "m": "FTSE",
+   "n": "FirstGroup",
+   "pxs": "239p",
+   "d1": 2.7,
+   "d5": 2.5,
+   "fromHi": -0.1,
+   "rv": 1.3,
+   "rsi": 70.0,
+   "sig": "Testing"
+  },
+  {
+   "t": "NATL",
    "m": "US",
-   "n": "Organon & Co.",
-   "pxs": "$13.91",
-   "d1": 0.1,
-   "d5": 0.1,
+   "n": "NCR Atleos",
+   "pxs": "$48.51",
+   "d1": 2.0,
+   "d5": 0.6,
    "fromHi": -0.2,
-   "rv": 1.1,
+   "rv": 0.8,
    "rsi": 64.0,
    "sig": "Testing"
   },
@@ -515,177 +515,143 @@
    "m": "FTSE",
    "n": "Rotork",
    "pxs": "494p",
-   "d1": -0.0,
-   "d5": 0.1,
+   "d1": 0.2,
+   "d5": 0.2,
    "fromHi": -0.2,
-   "rv": 0.2,
+   "rv": 0.5,
+   "rsi": 64.0,
+   "sig": "Testing"
+  },
+  {
+   "t": "SPI",
+   "m": "FTSE",
+   "n": "Spire Healthcare",
+   "pxs": "249p",
+   "d1": -0.2,
+   "d5": 0.4,
+   "fromHi": -0.2,
+   "rv": 3.0,
    "rsi": 62.0,
+   "sig": "Testing"
+  },
+  {
+   "t": "OGN",
+   "m": "US",
+   "n": "Organon & Co.",
+   "pxs": "$13.90",
+   "d1": 0.1,
+   "d5": 0.0,
+   "fromHi": -0.3,
+   "rv": 0.9,
+   "rsi": 62.0,
+   "sig": "Testing"
+  },
+  {
+   "t": "CRDA",
+   "m": "FTSE",
+   "n": "Croda International",
+   "pxs": "3,883p",
+   "d1": 1.3,
+   "d5": 1.6,
+   "fromHi": -0.3,
+   "rv": 1.0,
+   "rsi": 70.0,
    "sig": "Testing"
   },
   {
    "t": "EZJ",
    "m": "FTSE",
    "n": "EasyJet",
-   "pxs": "689p",
+   "pxs": "688p",
    "d1": 0.1,
-   "d5": 0.0,
-   "fromHi": -0.2,
-   "rv": 0.3,
-   "rsi": 61.0,
-   "sig": "Testing"
-  },
-  {
-   "t": "GKOS",
-   "m": "US",
-   "n": "Glaukos Corp.",
-   "pxs": "$254.46",
-   "d1": 1.9,
-   "d5": 4.6,
-   "fromHi": -0.3,
-   "rv": 0.3,
-   "rsi": 68.0,
-   "sig": "Testing"
-  },
-  {
-   "t": "TFX",
-   "m": "US",
-   "n": "Teleflex",
-   "pxs": "$166.97",
-   "d1": 1.9,
-   "d5": 4.7,
+   "d5": -0.1,
    "fromHi": -0.3,
    "rv": 0.4,
-   "rsi": 76.0,
-   "sig": "Testing"
-  },
-  {
-   "t": "ITRK",
-   "m": "FTSE",
-   "n": "Intertek",
-   "pxs": "5,945p",
-   "d1": 0.0,
-   "d5": 0.2,
-   "fromHi": -0.3,
-   "rv": 0.2,
    "rsi": 59.0,
-   "sig": "Testing"
-  },
-  {
-   "t": "PAYO",
-   "m": "US",
-   "n": "Payoneer Global Inc.",
-   "pxs": "$7.20",
-   "d1": -0.4,
-   "d5": 0.3,
-   "fromHi": -0.4,
-   "rv": 0.9,
-   "rsi": 58.0,
-   "sig": "Testing"
-  },
-  {
-   "t": "PTC",
-   "m": "US Large",
-   "n": "PTC Inc.",
-   "pxs": "$196.01",
-   "d1": 0.0,
-   "d5": 0.2,
-   "fromHi": -0.4,
-   "rv": 0.3,
-   "rsi": 69.0,
    "sig": "Testing"
   }
  ],
  "oversold": [
   {
-   "t": "CPI",
-   "m": "UK small",
-   "n": "CAPITA PLC",
-   "pxs": "69.3p",
-   "d1": 10.9,
-   "d5": -73.8,
-   "fromHi": -83.3,
-   "rv": 7.4,
-   "rsi": 16.0,
-   "sig": "Oversold"
-  },
-  {
    "t": "CTA",
    "m": "UK small",
    "n": "Ct Automotive Group",
-   "pxs": "11.25p",
-   "d1": 7.1,
-   "d5": -54.8,
-   "fromHi": -79.5,
-   "rv": 1.0,
-   "rsi": 22.0,
+   "pxs": "10.5p",
+   "d1": -4.5,
+   "d5": -56.7,
+   "fromHi": -80.9,
+   "rv": 2.8,
+   "rsi": 19.0,
    "sig": "Oversold"
   },
   {
-   "t": "THRU",
+   "t": "TERN",
    "m": "UK small",
-   "n": "Thruvision Group",
-   "pxs": "1.25p",
-   "d1": -7.4,
-   "d5": -34.2,
-   "fromHi": -63.2,
-   "rv": 0.6,
-   "rsi": 24.0,
+   "n": "Tern",
+   "pxs": "0.4p",
+   "d1": 0.0,
+   "d5": -46.7,
+   "fromHi": -76.5,
+   "rv": 1.8,
+   "rsi": 15.0,
    "sig": "Oversold"
   },
   {
    "t": "CRST",
    "m": "UK small",
    "n": "Crest Nicholson Holdings",
-   "pxs": "43.1p",
-   "d1": -2.0,
-   "d5": -32.1,
-   "fromHi": -75.1,
-   "rv": 1.9,
-   "rsi": 19.0,
+   "pxs": "44p",
+   "d1": -29.6,
+   "d5": -30.7,
+   "fromHi": -74.6,
+   "rv": 13.9,
+   "rsi": 20.0,
    "sig": "Oversold",
    "news": [
     {
      "h": "Trading and balance sheet update",
      "pos": [],
-     "neg": [],
+     "neg": [
+      "covenant"
+     ],
      "u": "https://www.investegate.co.uk/announcement/rns/crest-nicholson-holdings--crst/trading-and-balance-sheet-update-/9887492"
     }
    ]
   },
   {
-   "t": "SNDK",
-   "m": "US Large",
-   "n": "Sandisk",
-   "pxs": "$77.55",
-   "d1": -17.8,
-   "d5": -29.9,
-   "fromHi": -73.6,
-   "rv": 0.9,
+   "t": "SNEX",
+   "m": "US",
+   "n": "StoneX Group Inc.",
+   "pxs": "$39.49",
+   "d1": 7.8,
+   "d5": -30.5,
+   "fromHi": -58.3,
+   "rv": 2.1,
    "rsi": 25.0,
    "sig": "Oversold"
   },
   {
-   "t": "SNEX",
-   "m": "US",
-   "n": "StoneX Group Inc.",
-   "pxs": "$38.82",
-   "d1": -1.7,
-   "d5": -29.3,
-   "fromHi": -59.0,
-   "rv": 0.8,
-   "rsi": 24.0,
+   "t": "THRU",
+   "m": "UK small",
+   "n": "Thruvision Group",
+   "pxs": "1.35p",
+   "d1": -9.4,
+   "d5": -28.9,
+   "fromHi": -60.3,
+   "rv": 2.5,
+   "rsi": 26.0,
    "sig": "Oversold"
   },
   {
    "t": "MBO",
    "m": "UK small",
    "n": "Mobilityone Ltd",
-   "pxs": "4.75p",
-   "d1": -5.0,
-   "d5": -24.0,
-   "fromHi": -76.1,
-   "rv": 0.2,
-   "rsi": 32.0,
+   "pxs": "5p",
+   "d1": -13.0,
+   "d5": -25.9,
+   "fromHi": -74.9,
+   "rv": 0.4,
+   "rsi": 34.0,
    "sig": "Oversold",
    "news": [
     {
@@ -697,86 +663,50 @@
    ]
   },
   {
-   "t": "LQDT",
-   "m": "US",
-   "n": "Liquidity Services, Inc.",
-   "pxs": "$33.30",
-   "d1": 0.9,
-   "d5": -23.7,
-   "fromHi": -29.6,
-   "rv": 1.1,
-   "rsi": 26.0,
-   "sig": "Oversold"
-  },
-  {
    "t": "MCB",
    "m": "UK small",
    "n": "Mcbride",
-   "pxs": "137p",
-   "d1": 1.6,
-   "d5": -22.8,
-   "fromHi": -36.2,
-   "rv": 1.0,
-   "rsi": 21.0,
+   "pxs": "134p",
+   "d1": -2.9,
+   "d5": -25.3,
+   "fromHi": -37.2,
+   "rv": 1.9,
+   "rsi": 17.0,
    "sig": "Oversold"
   },
   {
-   "t": "80M",
-   "m": "AIM",
-   "n": "80 Mile",
-   "pxs": "0.674p",
-   "d1": -6.4,
-   "d5": -22.0,
-   "fromHi": -62.5,
-   "rv": 0.3,
-   "rsi": 34.0,
-   "sig": "Oversold"
-  },
-  {
-   "t": "SBTX",
-   "m": "UK small",
-   "n": "SKINBIOTHERAPEUTICS PLC",
-   "pxs": "3.75p",
-   "d1": -6.2,
-   "d5": -21.1,
-   "fromHi": -83.7,
-   "rv": 0.3,
-   "rsi": 16.0,
-   "sig": "Oversold"
-  },
-  {
-   "t": "ICHR",
+   "t": "LQDT",
    "m": "US",
-   "n": "Ichor Holdings, Ltd.",
-   "pxs": "$26.91",
-   "d1": -14.8,
-   "d5": -20.0,
-   "fromHi": -76.3,
-   "rv": 1.0,
-   "rsi": 34.0,
+   "n": "Liquidity Services, Inc.",
+   "pxs": "$33.01",
+   "d1": 3.6,
+   "d5": -24.9,
+   "fromHi": -30.2,
+   "rv": 1.6,
+   "rsi": 25.0,
    "sig": "Oversold"
   },
   {
-   "t": "JOG",
-   "m": "UK small",
-   "n": "JERSEY OIL & GAS PLC",
-   "pxs": "87p",
-   "d1": -1.1,
-   "d5": -19.1,
-   "fromHi": -39.2,
-   "rv": 0.7,
-   "rsi": 28.0,
+   "t": "FMC",
+   "m": "US",
+   "n": "FMC Corporation",
+   "pxs": "$4.12",
+   "d1": 5.9,
+   "d5": -21.2,
+   "fromHi": -77.5,
+   "rv": 1.0,
+   "rsi": 31.0,
    "sig": "Oversold"
   },
   {
    "t": "PAY",
    "m": "UK small",
    "n": "Paypoint",
-   "pxs": "610p",
-   "d1": -0.6,
-   "d5": -18.8,
-   "fromHi": -23.0,
-   "rv": 1.0,
+   "pxs": "614p",
+   "d1": 2.0,
+   "d5": -20.5,
+   "fromHi": -22.5,
+   "rv": 0.9,
    "rsi": 32.0,
    "sig": "Oversold",
    "news": [
@@ -795,385 +725,449 @@
    ]
   },
   {
-   "t": "ADI",
+   "t": "INTU",
    "m": "US Large",
-   "n": "Analog Devices",
-   "pxs": "$313.99",
-   "d1": -17.1,
-   "d5": -18.2,
-   "fromHi": -29.6,
-   "rv": 1.7,
-   "rsi": 33.0,
+   "n": "Intuit",
+   "pxs": "$275.46",
+   "d1": 1.9,
+   "d5": -20.3,
+   "fromHi": -59.6,
+   "rv": 1.3,
+   "rsi": 30.0,
+   "sig": "Oversold"
+  },
+  {
+   "t": "TRI",
+   "m": "UK small",
+   "n": "Trifast",
+   "pxs": "70p",
+   "d1": -1.4,
+   "d5": -20.3,
+   "fromHi": -26.3,
+   "rv": 1.0,
+   "rsi": 32.0,
+   "sig": "Oversold",
+   "news": [
+    {
+     "h": "Director/PDMR Shareholding",
+     "pos": [],
+     "neg": [],
+     "u": "https://www.investegate.co.uk/announcement/rns/trifast--tri/director-pdmr-shareholding/9891409"
+    }
+   ]
+  },
+  {
+   "t": "GROC",
+   "m": "UK small",
+   "n": "Greenroc Strategic Materials Plc",
+   "pxs": "2.8p",
+   "d1": -6.7,
+   "d5": -20.0,
+   "fromHi": -52.5,
+   "rv": 0.9,
+   "rsi": 35.0,
+   "sig": "Oversold",
+   "news": [
+    {
+     "h": "EIFO Drawdown",
+     "pos": [],
+     "neg": [],
+     "u": "https://www.investegate.co.uk/announcement/rns/greenroc-strategic-materials-plc--groc/eifo-drawdown/9887555"
+    }
+   ]
+  },
+  {
+   "t": "SNDK",
+   "m": "US Large",
+   "n": "Sandisk",
+   "pxs": "$94.39",
+   "d1": -2.7,
+   "d5": -19.4,
+   "fromHi": -67.9,
+   "rv": 1.5,
+   "rsi": 29.0,
+   "sig": "Oversold"
+  },
+  {
+   "t": "EME",
+   "m": "UK small",
+   "n": "Empyrean Energy",
+   "pxs": "0.029p",
+   "d1": -3.3,
+   "d5": -19.4,
+   "fromHi": -76.8,
+   "rv": 0.1,
+   "rsi": 26.0,
    "sig": "Oversold"
   }
  ],
  "watchlistAlerts": [
   {
-   "t": "80M",
+   "t": "EAH",
    "m": "AIM",
-   "n": "80 Mile",
-   "pxs": "0.674p",
-   "d1": -6.4,
-   "d5": -22.0,
-   "fromHi": -62.5,
-   "rv": 0.3,
-   "rsi": 34.0,
-   "sig": "Oversold"
+   "n": "ECO Animal Health",
+   "pxs": "79.5p",
+   "d1": -4.2,
+   "d5": -2.5,
+   "fromHi": -32.0,
+   "rv": 0.7,
+   "rsi": 31.0,
+   "sig": null
   },
   {
-   "t": "AEO",
+   "t": "LIT",
    "m": "AIM",
-   "n": "Aeorema Communications",
-   "pxs": "108p",
-   "d1": -6.5,
-   "d5": -2.3,
-   "fromHi": -14.0,
-   "rv": 1.3,
+   "n": "Litigation Capital Mgmt",
+   "pxs": "0.39p",
+   "d1": 20.4,
+   "d5": -22.0,
+   "fromHi": -97.0,
+   "rv": 0.2,
+   "rsi": 42.0,
+   "sig": null
+  },
+  {
+   "t": "OMI",
+   "m": "AIM",
+   "n": "Orosur Mining",
+   "pxs": "9.15p",
+   "d1": 5.2,
+   "d5": -9.0,
+   "fromHi": -77.7,
+   "rv": 0.3,
+   "rsi": 35.0,
+   "sig": null
+  },
+  {
+   "t": "WINE",
+   "m": "AIM",
+   "n": "Naked Wines",
+   "pxs": "70p",
+   "d1": -5.7,
+   "d5": 1.7,
+   "fromHi": -11.4,
+   "rv": 2.3,
    "rsi": 60.0,
    "sig": null
   },
   {
-   "t": "HPOW",
-   "m": "AIM",
-   "n": "H-Power",
-   "pxs": "6.16p",
-   "d1": -6.7,
-   "d5": -9.1,
-   "fromHi": -65.6,
-   "rv": 1.5,
-   "rsi": 27.0,
+   "t": "CWR",
+   "m": "FTSE",
+   "n": "Ceres Power",
+   "pxs": "227p",
+   "d1": 5.9,
+   "d5": -13.5,
+   "fromHi": -74.0,
+   "rv": 1.2,
+   "rsi": 36.0,
    "sig": null
   },
   {
-   "t": "LORD",
-   "m": "AIM",
-   "n": "Lords Group Trading",
-   "pxs": "6.45p",
-   "d1": -3.0,
-   "d5": -21.8,
-   "fromHi": -76.1,
-   "rv": 1.3,
-   "rsi": 16.0,
-   "sig": null
-  },
-  {
-   "t": "QED",
-   "m": "AIM",
-   "n": "Quadrise",
-   "pxs": "1.8p",
-   "d1": -5.8,
-   "d5": 5.9,
-   "fromHi": -48.9,
-   "rv": 0.6,
-   "rsi": 57.0,
-   "sig": null,
+   "t": "FCH",
+   "m": "FTSE",
+   "n": "Funding Circle",
+   "pxs": "252p",
+   "d1": 5.6,
+   "d5": 3.1,
+   "fromHi": -1.0,
+   "rv": 0.5,
+   "rsi": 68.0,
+   "sig": "Testing",
    "news": [
     {
-     "h": "Valkor payment update",
+     "h": "Funding Circle Holdings plc: POS-Transaction ...",
      "pos": [],
      "neg": [],
-     "u": "https://www.investegate.co.uk/announcement/rns/quadrise--qed/valkor-payment-update/9889739"
+     "u": "https://www.investegate.co.uk/announcement/eqs/funding-circle-holdings--fch/funding-circle-holdings-plc-pos-transaction-/9889494"
     }
    ]
-  },
-  {
-   "t": "SEE",
-   "m": "AIM",
-   "n": "Seeing Machines",
-   "pxs": "2.82p",
-   "d1": -4.6,
-   "d5": -6.9,
-   "fromHi": -56.6,
-   "rv": 0.6,
-   "rsi": 32.0,
-   "sig": null
-  },
-  {
-   "t": "TRU",
-   "m": "AIM",
-   "n": "TruFin",
-   "pxs": "83p",
-   "d1": -3.5,
-   "d5": -5.7,
-   "fromHi": -43.5,
-   "rv": 0.9,
-   "rsi": 34.0,
-   "sig": null
-  },
-  {
-   "t": "TUN",
-   "m": "AIM",
-   "n": "Tungsten West",
-   "pxs": "29p",
-   "d1": 5.8,
-   "d5": -6.1,
-   "fromHi": -44.9,
-   "rv": 1.0,
-   "rsi": 39.0,
-   "sig": null
-  },
-  {
-   "t": "ZIOC",
-   "m": "AIM",
-   "n": "Zanaga Iron Ore",
-   "pxs": "1.8p",
-   "d1": -7.7,
-   "d5": -12.2,
-   "fromHi": -81.8,
-   "rv": 1.1,
-   "rsi": 26.0,
-   "sig": null
-  },
-  {
-   "t": "ANTO",
-   "m": "FTSE",
-   "n": "Antofagasta",
-   "pxs": "2,546p",
-   "d1": -8.1,
-   "d5": -15.7,
-   "fromHi": -43.1,
-   "rv": 1.5,
-   "rsi": 30.0,
-   "sig": null
-  },
-  {
-   "t": "BGEO",
-   "m": "FTSE",
-   "n": "Lion Finance Group",
-   "pxs": "12,040p",
-   "d1": -4.4,
-   "d5": -9.1,
-   "fromHi": -18.8,
-   "rv": 1.2,
-   "rsi": 39.0,
-   "sig": null
-  },
-  {
-   "t": "FRES",
-   "m": "FTSE",
-   "n": "Fresnillo",
-   "pxs": "2,146p",
-   "d1": -4.9,
-   "d5": -9.7,
-   "fromHi": -52.0,
-   "rv": 0.8,
-   "rsi": 35.0,
-   "sig": null
   },
   {
    "t": "OXIG",
    "m": "FTSE",
    "n": "Oxford Instruments",
-   "pxs": "2,438p",
-   "d1": -4.1,
-   "d5": -2.6,
-   "fromHi": -26.5,
-   "rv": 1.2,
-   "rsi": 42.0,
+   "pxs": "2,542p",
+   "d1": 6.7,
+   "d5": 1.2,
+   "fromHi": -23.4,
+   "rv": 0.5,
+   "rsi": 47.0,
    "sig": null
   },
   {
    "t": "RSW",
    "m": "FTSE",
    "n": "Renishaw",
-   "pxs": "4,550p",
-   "d1": -4.4,
-   "d5": -3.0,
-   "fromHi": -24.5,
-   "rv": 0.5,
-   "rsi": 37.0,
+   "pxs": "4,758p",
+   "d1": 5.9,
+   "d5": -0.5,
+   "fromHi": -21.1,
+   "rv": 0.9,
+   "rsi": 42.0,
    "sig": null
   },
   {
-   "t": "DIA",
-   "m": "UK Main",
-   "n": "Dialight",
-   "pxs": "564p",
+   "t": "VOD",
+   "m": "FTSE",
+   "n": "Vodafone",
+   "pxs": "103p",
    "d1": -5.1,
-   "d5": -9.6,
-   "fromHi": -10.5,
-   "rv": 1.1,
-   "rsi": 46.0,
+   "d5": -12.6,
+   "fromHi": -22.1,
+   "rv": 2.3,
+   "rsi": 24.0,
+   "sig": "Oversold"
+  },
+  {
+   "t": "FXPO",
+   "m": "UK Main",
+   "n": "Ferrexpo",
+   "pxs": "25.38p",
+   "d1": 12.6,
+   "d5": -13.1,
+   "fromHi": -70.9,
+   "rv": 1.5,
+   "rsi": 39.0,
+   "sig": null
+  },
+  {
+   "t": "GLE",
+   "m": "UK Main",
+   "n": "MJ Gleeson",
+   "pxs": "238p",
+   "d1": -3.1,
+   "d5": -9.2,
+   "fromHi": -45.4,
+   "rv": 0.6,
+   "rsi": 25.0,
    "sig": null
   },
   {
    "t": "AAON",
    "m": "US",
    "n": "AAON",
-   "pxs": "$75.49",
-   "d1": -5.8,
-   "d5": -4.1,
-   "fromHi": -49.8,
+   "pxs": "$80.16",
+   "d1": 6.6,
+   "d5": 2.5,
+   "fromHi": -46.7,
    "rv": 0.7,
-   "rsi": 51.0,
+   "rsi": 57.0,
    "sig": null
   },
   {
    "t": "AEHR",
    "m": "US",
    "n": "Aehr Test Systems",
-   "pxs": "$42.60",
-   "d1": -12.2,
-   "d5": -14.4,
-   "fromHi": -71.1,
-   "rv": 0.5,
-   "rsi": 38.0,
+   "pxs": "$48.51",
+   "d1": 21.8,
+   "d5": -4.8,
+   "fromHi": -67.1,
+   "rv": 1.1,
+   "rsi": 41.0,
    "sig": null
   },
   {
    "t": "AMRC",
    "m": "US",
    "n": "Ameresco",
-   "pxs": "$21.33",
-   "d1": -3.2,
-   "d5": -6.2,
-   "fromHi": -42.6,
-   "rv": 0.4,
-   "rsi": 47.0,
+   "pxs": "$22.03",
+   "d1": 6.4,
+   "d5": -10.7,
+   "fromHi": -40.7,
+   "rv": 0.8,
+   "rsi": 49.0,
    "sig": null
   },
   {
    "t": "APPS",
    "m": "US",
    "n": "Digital Turbine",
-   "pxs": "$6.05",
-   "d1": -4.7,
-   "d5": -14.1,
-   "fromHi": -60.6,
-   "rv": 0.3,
-   "rsi": 36.0,
+   "pxs": "$6.35",
+   "d1": 10.6,
+   "d5": -10.1,
+   "fromHi": -58.6,
+   "rv": 0.7,
+   "rsi": 37.0,
    "sig": null
   },
   {
    "t": "AVT",
    "m": "US",
    "n": "Avnet",
-   "pxs": "$73.81",
-   "d1": -5.6,
-   "d5": -8.6,
-   "fromHi": -32.1,
-   "rv": 0.3,
-   "rsi": 35.0,
+   "pxs": "$78.15",
+   "d1": 6.4,
+   "d5": -3.8,
+   "fromHi": -28.1,
+   "rv": 0.7,
+   "rsi": 39.0,
+   "sig": null
+  },
+  {
+   "t": "BV",
+   "m": "US",
+   "n": "BrightView",
+   "pxs": "$8.59",
+   "d1": 5.9,
+   "d5": -8.3,
+   "fromHi": -42.7,
+   "rv": 1.1,
+   "rsi": 32.0,
    "sig": null
   },
   {
    "t": "BW",
    "m": "US",
    "n": "Babcock & Wilcox",
-   "pxs": "$3.87",
-   "d1": -6.7,
-   "d5": -11.6,
-   "fromHi": -82.4,
-   "rv": 0.3,
-   "rsi": 43.0,
+   "pxs": "$4.15",
+   "d1": 17.2,
+   "d5": -4.2,
+   "fromHi": -81.2,
+   "rv": 0.8,
+   "rsi": 46.0,
    "sig": null
   },
   {
    "t": "COGT",
    "m": "US",
    "n": "Cogent Biosciences",
-   "pxs": "$33.49",
-   "d1": 19.1,
-   "d5": 20.2,
-   "fromHi": -23.4,
-   "rv": 2.1,
-   "rsi": 61.0,
-   "sig": null
-  },
-  {
-   "t": "ETON",
-   "m": "US",
-   "n": "Eton Pharmaceuticals",
-   "pxs": "$67.08",
-   "d1": 5.4,
-   "d5": 5.4,
-   "fromHi": -5.0,
-   "rv": 0.7,
-   "rsi": 65.0,
+   "pxs": "$28.11",
+   "d1": 5.2,
+   "d5": 2.4,
+   "fromHi": -35.7,
+   "rv": 0.9,
+   "rsi": 43.0,
    "sig": null
   },
   {
    "t": "FORM",
    "m": "US",
    "n": "FormFactor",
-   "pxs": "$72.78",
-   "d1": -10.8,
-   "d5": -12.4,
-   "fromHi": -54.6,
-   "rv": 0.6,
-   "rsi": 38.0,
+   "pxs": "$81.57",
+   "d1": 11.7,
+   "d5": 0.5,
+   "fromHi": -49.1,
+   "rv": 1.3,
+   "rsi": 42.0,
    "sig": null
   },
   {
    "t": "FOSL",
    "m": "US",
    "n": "Fossil Group",
-   "pxs": "$8.11",
-   "d1": 5.2,
-   "d5": 1.0,
-   "fromHi": -23.1,
-   "rv": 0.5,
-   "rsi": 55.0,
+   "pxs": "$7.71",
+   "d1": 6.9,
+   "d5": -6.3,
+   "fromHi": -26.9,
+   "rv": 1.1,
+   "rsi": 52.0,
+   "sig": null
+  },
+  {
+   "t": "FROG",
+   "m": "US",
+   "n": "JFrog",
+   "pxs": "$106.66",
+   "d1": 5.6,
+   "d5": -3.0,
+   "fromHi": -12.5,
+   "rv": 0.8,
+   "rsi": 54.0,
+   "sig": null
+  },
+  {
+   "t": "GRPN",
+   "m": "US",
+   "n": "Groupon",
+   "pxs": "$9.44",
+   "d1": -4.1,
+   "d5": -19.9,
+   "fromHi": -68.4,
+   "rv": 1.5,
+   "rsi": 23.0,
    "sig": null
   },
   {
    "t": "IONS",
    "m": "US",
    "n": "Ionis Pharmaceuticals",
-   "pxs": "$30.44",
-   "d1": 7.5,
-   "d5": 12.9,
-   "fromHi": -64.9,
-   "rv": 0.4,
-   "rsi": 38.0,
+   "pxs": "$28.32",
+   "d1": 6.5,
+   "d5": 1.1,
+   "fromHi": -67.4,
+   "rv": 0.9,
+   "rsi": 30.0,
    "sig": null
   },
   {
-   "t": "JANX",
+   "t": "JBI",
    "m": "US",
-   "n": "Janux Therapeutics",
-   "pxs": "$11.33",
-   "d1": 7.5,
-   "d5": 5.8,
-   "fromHi": -67.9,
-   "rv": 0.3,
-   "rsi": 36.0,
+   "n": "Janus International",
+   "pxs": "$3.63",
+   "d1": 11.0,
+   "d5": 12.4,
+   "fromHi": -51.5,
+   "rv": 1.3,
+   "rsi": 43.0,
    "sig": null
   },
   {
-   "t": "MLYS",
+   "t": "LINC",
    "m": "US",
-   "n": "Mineralys Therapeutics",
-   "pxs": "$15.32",
-   "d1": 8.2,
-   "d5": 5.8,
-   "fromHi": -65.3,
-   "rv": 0.3,
-   "rsi": 41.0,
+   "n": "Lincoln Educational",
+   "pxs": "$21.39",
+   "d1": 6.3,
+   "d5": -7.5,
+   "fromHi": -62.0,
+   "rv": 0.7,
+   "rsi": 47.0,
    "sig": null
   },
   {
-   "t": "PEPG",
+   "t": "NESR",
    "m": "US",
-   "n": "PepGen",
-   "pxs": "$4.20",
-   "d1": 11.5,
-   "d5": 8.4,
-   "fromHi": -46.1,
+   "n": "National Energy Services Reunited",
+   "pxs": "$18.73",
+   "d1": 5.3,
+   "d5": -7.4,
+   "fromHi": -49.3,
    "rv": 0.5,
-   "rsi": 62.0,
+   "rsi": 39.0,
+   "sig": null
+  },
+  {
+   "t": "PAYS",
+   "m": "US",
+   "n": "Paysign",
+   "pxs": "$10.51",
+   "d1": 7.4,
+   "d5": 10.2,
+   "fromHi": -34.9,
+   "rv": 0.7,
+   "rsi": 38.0,
    "sig": null
   },
   {
    "t": "QMCO",
    "m": "US",
    "n": "Quantum Corp",
-   "pxs": "$12.37",
-   "d1": -9.4,
-   "d5": -13.8,
-   "fromHi": -65.3,
-   "rv": 0.2,
-   "rsi": 36.0,
+   "pxs": "$13.66",
+   "d1": 19.0,
+   "d5": -3.3,
+   "fromHi": -61.7,
+   "rv": 1.1,
+   "rsi": 39.0,
+   "sig": null
+  },
+  {
+   "t": "RSKD",
+   "m": "US",
+   "n": "Riskified",
+   "pxs": "$10.10",
+   "d1": 6.8,
+   "d5": 7.2,
+   "fromHi": -9.3,
+   "rv": 1.0,
+   "rsi": 63.0,
    "sig": null
   }
  ],
@@ -1361,185 +1355,6 @@
    ],
    "bid": false,
    "u": "https://www.investegate.co.uk/announcement/rns/zenith-energy-ltd-com-shs-npv-di---zen/icsid-suspension-potential-negotiated-settlement/9889846"
-  },
-  {
-   "t": "BRS",
-   "h": "Proposed Delisting and Listing on AIM",
-   "pos": [],
-   "neg": [
-    "delist"
-   ],
-   "bid": false,
-   "u": "https://www.investegate.co.uk/announcement/rns/beacon-rise-holdings--brs/proposed-delisting-and-listing-on-aim/9889751"
-  },
-  {
-   "t": "0NX3",
-   "h": "ASM share buyback update November 16 – 20, 20...",
-   "pos": [
-    "buyback"
-   ],
-   "neg": [],
-   "bid": false,
-   "u": "https://www.investegate.co.uk/announcement/gnw/asm-international-nv--0nx3/asm-share-buyback-update-november-16-20-20-/9889668"
-  },
-  {
-   "t": "0QIU",
-   "h": "Novo Nordisk A/S - share repurchase programme",
-   "pos": [
-    "share repurchase"
-   ],
-   "neg": [],
-   "bid": false,
-   "u": "https://www.investegate.co.uk/announcement/gnw/novo-nordisk-a-s-class-b--0qiu/novo-nordisk-a-s-share-repurchase-programme/9889378"
-  },
-  {
-   "t": "0Q4U",
-   "h": "Transactions under Novonesis’ share buyback p...",
-   "pos": [
-    "buyback"
-   ],
-   "neg": [],
-   "bid": false,
-   "u": "https://www.investegate.co.uk/announcement/gnw/novozymes-a-s--0q4u/transactions-under-novonesis-share-buyback-p-/9889284"
-  },
-  {
-   "t": "BVA",
-   "h": "Periodic Report on the Buyback Program 23/11/2026",
-   "pos": [
-    "buyback"
-   ],
-   "neg": [],
-   "bid": false,
-   "u": "https://www.investegate.co.uk/announcement/rns/banco-bilbao-vizcaya-argentaria-sa--bva/periodic-report-on-the-buyback-program-23-11-2026/9888883"
-  },
-  {
-   "t": "ATC",
-   "h": "Result of Oversubscribed Fundraising",
-   "pos": [],
-   "neg": [
-    "fundrais"
-   ],
-   "bid": false,
-   "u": "https://www.investegate.co.uk/announcement/rns/atc-music-group-plc--atc/result-of-oversubscribed-fundraising/9888653"
-  },
-  {
-   "t": "0MGE",
-   "h": "AL Sydbank A/S share buyback programme: trans...",
-   "pos": [
-    "buyback"
-   ],
-   "neg": [],
-   "bid": false,
-   "u": "https://www.investegate.co.uk/announcement/gnw/sydbank-a-s-sydbank-ord-shs--0mge/al-sydbank-a-s-share-buyback-programme-trans-/9888640"
-  },
-  {
-   "t": "S32",
-   "h": "Daily Buy-Back Notification",
-   "pos": [
-    "buy-back"
-   ],
-   "neg": [],
-   "bid": false,
-   "u": "https://www.investegate.co.uk/announcement/rns/south32-limited-di---s32/daily-buy-back-notification/9888615"
-  },
-  {
-   "t": "ICGC",
-   "h": "Delisting and Cancellation of Trading in ICG ...",
-   "pos": [],
-   "neg": [
-    "cancellation of trading",
-    "delist"
-   ],
-   "bid": false,
-   "u": "https://www.investegate.co.uk/announcement/gnw/irish-continental-group-units-comp-cdi---icgc/delisting-and-cancellation-of-trading-in-icg-/9888415"
-  },
-  {
-   "t": "KETL",
-   "h": "Recommencement of Share Buyback Programme",
-   "pos": [
-    "buyback"
-   ],
-   "neg": [],
-   "bid": false,
-   "u": "https://www.investegate.co.uk/announcement/rns/strix-group--ketl/recommencement-of-share-buyback-programme-/9887688"
-  },
-  {
-   "t": "ATC",
-   "h": "Acquisition of One Media iP Ltd & £3.1m Fundraise",
-   "pos": [],
-   "neg": [
-    "fundrais"
-   ],
-   "bid": false,
-   "u": "https://www.investegate.co.uk/announcement/rns/atc-music-group-plc--atc/acquisition-of-one-media-ip-ltd-3-1m-fundraise/9887554"
-  },
-  {
-   "t": "TMT",
-   "h": "Completion of Share Buyback Programme",
-   "pos": [
-    "buyback"
-   ],
-   "neg": [],
-   "bid": false,
-   "u": "https://www.investegate.co.uk/announcement/rns/tmt-investments--tmt/completion-of-share-buyback-programme/9887553"
-  },
-  {
-   "t": "FUM",
-   "h": "Update on M&A Process and Formal Sale Process",
-   "pos": [],
-   "neg": [],
-   "bid": true,
-   "u": "https://www.investegate.co.uk/announcement/rns/futura-medical--fum/update-on-m-a-process-and-formal-sale-process/9887550"
-  },
-  {
-   "t": "TMHK",
-   "h": "Senior Appointments and Fundraise",
-   "pos": [],
-   "neg": [
-    "fundrais"
-   ],
-   "bid": false,
-   "u": "https://www.investegate.co.uk/announcement/rns/tomahawk-metals-plc--tmhk/senior-appointments-and-fundraise-/9887545"
-  },
-  {
-   "t": "TON",
-   "h": "Recommended Cash Acquisition of Titon Holdings plc",
-   "pos": [
-    "recommended cash acquisition"
-   ],
-   "neg": [],
-   "bid": false,
-   "u": "https://www.investegate.co.uk/announcement/rns/titon-holdings--ton/recommended-cash-acquisition-of-titon-holdings-plc/9887533"
-  },
-  {
-   "t": "DRX",
-   "h": "Trading update and CMD with earnings upgrades",
-   "pos": [
-    "upgrade"
-   ],
-   "neg": [],
-   "bid": false,
-   "u": "https://www.investegate.co.uk/announcement/rns/drax-group--drx/trading-update-and-cmd-with-earnings-upgrades/9887502"
-  },
-  {
-   "t": "MPAL",
-   "h": "Placing to raise £2.5 million & Board Changes",
-   "pos": [],
-   "neg": [
-    "placing"
-   ],
-   "bid": false,
-   "u": "https://www.investegate.co.uk/announcement/rns/medpal-ai-plc--mpal/placing-to-raise-2-5-million-board-changes/9887496"
-  },
-  {
-   "t": "0MGD",
-   "h": "Share repurchase programme: Transactions of w...",
-   "pos": [
-    "share repurchase"
-   ],
-   "neg": [],
-   "bid": false,
-   "u": "https://www.investegate.co.uk/announcement/gnw/jyske-bank-a-s--0mgd/share-repurchase-programme-transactions-of-w-/9887386"
   }
  ]
 }
