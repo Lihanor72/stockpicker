@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-26 00:43 UTC",
+ "generated": "2026-11-26 03:43 UTC",
  "note": "Shortlist from the free auto-scan. Prices from Yahoo (delayed, end of day for the last bar). Verify before use.",
  "takeovers": {
   "added": [],
@@ -66,18 +66,6 @@
      "u": "https://www.investegate.co.uk/announcement/rns/premier-african-minerals-ltd--prem/creditor-settlement/9891582"
     }
    ]
-  },
-  {
-   "t": "SNDK",
-   "m": "US Large",
-   "n": "Sandisk",
-   "pxs": "$73.61",
-   "d1": -22.0,
-   "d5": -33.5,
-   "fromHi": -75.0,
-   "rv": 1.5,
-   "rsi": 24.0,
-   "sig": "Oversold"
   },
   {
    "t": "MPAL",
@@ -413,6 +401,32 @@
    "rv": 3.7,
    "rsi": 32.0,
    "sig": "Oversold"
+  },
+  {
+   "t": "CABP",
+   "m": "UK small",
+   "n": "Cab Payments Holdings 1 3P Wi",
+   "pxs": "87p",
+   "d1": 5.6,
+   "d5": 3.4,
+   "fromHi": -13.0,
+   "rv": 76.7,
+   "rsi": 65.0,
+   "sig": null,
+   "news": [
+    {
+     "h": "STATEMENT REGARDING PUBLICATION OF OFFER DOCUMENT",
+     "pos": [],
+     "neg": [],
+     "u": "https://www.investegate.co.uk/announcement/rns/cab-payments-holdings-1-3p-wi---cabp/statement-regarding-publication-of-offer-document/9891413"
+    },
+    {
+     "h": "Offer Update",
+     "pos": [],
+     "neg": [],
+     "u": "https://www.investegate.co.uk/announcement/rns/cab-payments-holdings-1-3p-wi---cabp/offer-update/9890865"
+    }
+   ]
   }
  ],
  "breakouts": [
@@ -550,7 +564,7 @@
    "d1": 1.0,
    "d5": 2.0,
    "fromHi": -0.1,
-   "rv": 1.0,
+   "rv": 1.2,
    "rsi": 72.0,
    "sig": "Testing"
   },
@@ -618,7 +632,7 @@
    "d1": -0.2,
    "d5": -0.1,
    "fromHi": -0.3,
-   "rv": 2.2,
+   "rv": 2.3,
    "rsi": 48.0,
    "sig": "Testing"
   },
@@ -689,18 +703,6 @@
    "d5": -34.2,
    "fromHi": -63.2,
    "rv": 0.6,
-   "rsi": 24.0,
-   "sig": "Oversold"
-  },
-  {
-   "t": "SNDK",
-   "m": "US Large",
-   "n": "Sandisk",
-   "pxs": "$73.61",
-   "d1": -22.0,
-   "d5": -33.5,
-   "fromHi": -75.0,
-   "rv": 1.5,
    "rsi": 24.0,
    "sig": "Oversold"
   },
@@ -850,6 +852,18 @@
    "fromHi": -22.7,
    "rv": 4.5,
    "rsi": 24.0,
+   "sig": "Oversold"
+  },
+  {
+   "t": "SNDK",
+   "m": "US Large",
+   "n": "Sandisk",
+   "pxs": "$94.39",
+   "d1": -2.7,
+   "d5": -19.4,
+   "fromHi": -67.9,
+   "rv": 1.5,
+   "rsi": 29.0,
    "sig": "Oversold"
   }
  ],
