@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-28 00:16 UTC",
+ "generated": "2026-11-28 03:27 UTC",
  "note": "Shortlist from the free auto-scan. Prices from Yahoo (delayed, end of day for the last bar). Verify before use.",
  "takeovers": {
   "added": [],
@@ -799,18 +799,6 @@
    ]
   },
   {
-   "t": "SNDK",
-   "m": "US Large",
-   "n": "Sandisk",
-   "pxs": "$85.36",
-   "d1": -9.6,
-   "d5": -22.8,
-   "fromHi": -71.0,
-   "rv": 1.2,
-   "rsi": 27.0,
-   "sig": "Oversold"
-  },
-  {
    "t": "GROC",
    "m": "UK small",
    "n": "Greenroc Strategic Materials Plc",
@@ -832,6 +820,18 @@
    "fromHi": -37.9,
    "rv": 2.0,
    "rsi": 32.0,
+   "sig": "Oversold"
+  },
+  {
+   "t": "SNDK",
+   "m": "US Large",
+   "n": "Sandisk",
+   "pxs": "$94.39",
+   "d1": -2.7,
+   "d5": -19.4,
+   "fromHi": -67.9,
+   "rv": 1.5,
+   "rsi": 29.0,
    "sig": "Oversold"
   },
   {
